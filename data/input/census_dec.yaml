@@ -30,13 +30,13 @@ pct_owner_occ:
 
 
 hispanic:
-  2010: 
+  2000: 
     num:
     - P004002
     den:
     - P001001
 
-  2000: 
+  2010: 
     num:
     - P004003
     den:
