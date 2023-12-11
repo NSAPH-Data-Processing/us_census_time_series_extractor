@@ -81,7 +81,7 @@ To align with the aggregated nature of ACS estimates over 5-year periods, a spec
 
 For instance, when extracting data for the year 2020 from the ACS, the data is tagged internally as ACS 2018. This alignment respects the fact that the 2020 5-year estimates encompass ACS data collected from January 1, 2016, through December 31, 2020. This approach enables accurate and meaningful analysis while considering the temporal aggregation inherent in ACS data reporting.
 
-** American Community Survey 1-Year Data and Hispanic Variable **
+**American Community Survey 1-Year Data and Hispanic Variable**
 
 Hispanic data was incorporated starting from the 2009 ACS 1-year estimates and hence not available for the years 20005-2008 for ACS 1-Year estimates and marked as NULL in the data.
 
