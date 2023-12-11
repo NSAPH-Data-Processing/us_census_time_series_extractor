@@ -5,7 +5,7 @@
 - [Codebook](#codebook)
 - [Repository Content](#repository-content)
 - [Data Lineage](#data-lineage)
-- [Processing Rules](#installation)
+- [Processing Rules](#processing-rules)
 - [Run](#run)
 
 ## Introduction
@@ -61,11 +61,11 @@ Puerto Rico, and for the United States.
 
 The repository contains: 
 
-- [data/input](https://github.com/NSAPH-Data-Processing/census_acs5/blob/dev/census_zcta.py): The directory for input yaml files for each dataset ACS 1-year, ACS 5-year and Decennial SF1 estimates. 
-- [census_fetch.py](https://github.com/NSAPH-Data-Processing/census_acs5/blob/dev/census_zcta.py): The main script for querying Census API and generating final datasets.
+- [data/input](https://github.com/NSAPH-Data-Processing/census/tree/main/data/input): The directory for input yaml files for each dataset ACS 1-year, ACS 5-year and Decennial SF1 estimates. 
+- [census_fetch.py](https://github.com/NSAPH-Data-Processing/census/blob/main/census_fetch.py): The main script for querying Census API and generating final datasets.
 - [requirements.yml](https://github.com/NSAPH-Data-Processing/census_acs5/blob/dev/requirements.yml): Environment setup file for result reproducibility.
 
-## Data Lineage <change extraction>
+## Data Lineage
 
 - **Data Source** :The primary data source for this project is the [American Community Survey 5-Year Data (ACS5)](https://www.census.gov/programs-surveys/acs/about.html), which is publicly available and maintained by U.S. Census Bureau. 
 
