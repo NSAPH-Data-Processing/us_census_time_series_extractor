@@ -16,12 +16,17 @@ COPY requirements.yml .
 # Create a new Conda environment using the requirements.yml file
 RUN mamba env create -f requirements.yml
 
-# Activate the new environment for subsequent commands
+# Update snakemake and pulp
+RUN conda install -n census_acs5_env pulp -c conda-forge
+# Activate the new environment for subsequent 
+
 SHELL ["conda", "run", "-n", "census_acs5_env", "/bin/bash", "-c"]
+
 
 # Create paths to data placeholders
 RUN python utils/create_data_symlinks.py
 
 # Set the entrypoint to use the Conda environment
-ENTRYPOINT ["conda", "run", "-n", "census_acs5_env", "bash", "-c", "source activate census_acs5_env && snakemake --configfile conf/config.yaml"]
+
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "census_acs5_env", "snakemake"]
 CMD ["--cores", "1"]
