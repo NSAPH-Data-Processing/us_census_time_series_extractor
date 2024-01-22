@@ -1,0 +1,3 @@
+# if the files are stored in cannon, then the paths are: 
+output:
+  census: '/n/dominici_lab/lab/data/exposures/exposure/census'
