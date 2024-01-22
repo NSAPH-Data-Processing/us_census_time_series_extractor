@@ -1,4 +1,4 @@
-name: census_acs5_env
+name: census_env
 channels:
   - conda-forge
   - defaults
