@@ -87,3 +87,24 @@ Hispanic data was incorporated starting from the 2009 ACS 1-year estimates and h
 
 
 ## Run 
+
+You can run the pipeline steps manually or run the snakemake pipeline described in the Snakefile.
+
+**run pipeline steps manually**
+
+```bash
+conda env create -f requirements.yml
+conda activate census_acs5_env
+export CENSUS_API_KEY='your_api_key_here'
+python src/census_fetch.py --var_yaml census_acs5.yaml --geo_type county --census_type acs --table_name acs5
+```
+
+**run snakemake pipeline**
+or run the pipeline:
+
+```bash
+conda env create -f requirements.yml
+conda activate census_acs5_env
+export CENSUS_API_KEY='your_api_key_here'
+snakemake --cores 4
+```
