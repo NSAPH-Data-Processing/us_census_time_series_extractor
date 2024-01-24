@@ -96,6 +96,7 @@ You can run the pipeline steps manually or run the snakemake pipeline described 
 conda env create -f requirements.yml
 conda activate census_acs5_env
 export CENSUS_API_KEY='your_api_key_here'
+#To generate all variables for all years for acs_5 county
 python src/census_fetch.py --var_yaml census_acs5.yaml --geo_type county --census_type acs --table_name acs5
 ```
 
@@ -108,3 +109,5 @@ conda activate census_acs5_env
 export CENSUS_API_KEY='your_api_key_here'
 snakemake --cores 4
 ```
+
+## Dockerized Pipeline
