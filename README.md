@@ -1,4 +1,4 @@
-# Census 
+# Census Series
 
 - [Introduction](#introduction)
 - [Data Description](#data-description)
@@ -9,7 +9,7 @@
 - [Run](#run)
 
 ## Introduction
-The project streamlines the extraction and analysis of demographic data from American Community Survey 5-Year Data (ACS5), American Community Survey 1-Year Data (ACS5) and Decennial Census (SF1).
+This repository streamlines the extraction of time series from American Community Survey 5-Year Data (ACS5), American Community Survey 1-Year Data (ACS5) and Decennial Census (SF1).
 
 ## Data Description
 
