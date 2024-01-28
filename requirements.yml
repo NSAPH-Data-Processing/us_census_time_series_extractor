@@ -11,7 +11,7 @@ dependencies:
   - pip=22.2.2
   - pip:
       - us==2.0.2
-      - duckdb==0.8.1l
+      - duckdb==0.8.1
       - pandas==1.5.1
       - numpy==1.23.4
       - ipykernel==6.23.3
