@@ -167,9 +167,7 @@ if __name__ == "__main__":
     file_name = f'{table_name}_{geo_type}' + '.csv'
 
     # Save the DataFrame to a CSV file
-    with open("conf/datapaths/datapaths.yaml", 'r') as file:
-        output_folder_name = list(yaml.safe_load(file)['output'].keys())[0]
-    file_save_dir = './data/output/' + output_folder_name
+    file_save_dir = './data/output/census_series'
     file_save_path = os.path.join(file_save_dir, file_name)
-    final_df.to_csv(file_save_path)
+    final_df.to_csv(file_save_path, index=False)
     print(f"GENERATED file = '{table_name}_{geo_type}.csv'")
