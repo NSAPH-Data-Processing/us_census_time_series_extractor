@@ -8,7 +8,8 @@ WORKDIR /app
 ARG GITHUB_TOKEN
 
 # Clone your repository
-RUN git clone https://${GITHUB_TOKEN}@github.com/NSAPH-Data-Processing/census .
+#RUN git clone https://${GITHUB_TOKEN}@github.com/NSAPH-Data-Processing/census .
+RUN git clone https://github.com/Climate-CAFE/census_series.git .
 
 # Copy requirements.yml into the container
 COPY requirements.yml .
