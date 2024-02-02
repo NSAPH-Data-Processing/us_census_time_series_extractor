@@ -5,29 +5,20 @@ RUN apt-get update && apt-get install -y build-essential
 
 WORKDIR /app
 
-ARG GITHUB_TOKEN
-
-# Clone your repository
+# Clone the repository
+#ARG GITHUB_TOKEN
 #RUN git clone https://${GITHUB_TOKEN}@github.com/NSAPH-Data-Processing/census .
 RUN git clone https://github.com/Climate-CAFE/census_series.git .
-
-# Copy requirements.yml into the container
-COPY requirements.yml .
-
-# Create a new Conda environment using the requirements.yml file
-RUN mamba env create -f requirements.yml
+RUN mamba env update -n base -f requirements.yml 
 
 # Update snakemake and pulp
-RUN conda install -n census_acs5_env pulp -c conda-forge
-# Activate the new environment for subsequent 
-
-SHELL ["conda", "run", "-n", "census_acs5_env", "/bin/bash", "-c"]
-
+#RUN conda install pulp -c conda-forge
 
 # Create paths to data placeholders
 RUN python utils/create_data_symlinks.py
 
 # Set the entrypoint to use the Conda environment
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "census_acs5_env", "snakemake"]
+#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "census_series", "snakemake"]
+ENTRYPOINT [ "snakemake" ]
 CMD ["--cores", "1"]
