@@ -9,7 +9,7 @@
 - [Run](#run)
 
 ## Introduction
-This repository streamlines the extraction of time series from American Community Survey 5-Year Data (ACS5), American Community Survey 1-Year Data (ACS5) and Decennial Census (SF1).
+This repository streamlines the extraction of time series from American Community Survey 5-Year Data (ACS5), American Community Survey 1-Year Data (ACS1) and Decennial Census (SF1).
 
 ## Data Description
 
@@ -97,7 +97,7 @@ You can run the pipeline steps manually or run the snakemake pipeline described 
 ```bash
 # Create and activate the conda environment
 conda env create -f requirements.yml
-conda activate census_acs5_env
+conda activate census_series
 
 # Set your Census API key
 export CENSUS_API_KEY='your_api_key_here'
@@ -113,26 +113,30 @@ python src/census_fetch.py --var_yaml census_acs5.yaml --geo_type county --censu
 ```bash
 # Create and activate the conda environment
 conda env create -f requirements.yml
-conda activate census_acs5_env
+conda activate census_series
 
 # Set your Census API key
 export CENSUS_API_KEY='your_api_key_here'
 
 # Execute the Snakemake pipeline
-snakemake --cores 4
+snakemake --cores 1
 ```
 
 ### Dockerized Pipeline
 
-For an isolated and reproducible environment, the pipeline is also dockerized. To build and run the Docker container, use the following commands:
+For an isolated and reproducible environment, the pipeline is also dockerized. To run the Dockerized task decide in which folder you want the output files to be stored <output_path> and run
 
 ```bash
-# Build the Docker image
-docker build --build-arg -t census:updated .
-
-# Run the Docker container
-docker run -it -e CENSUS_API_KEY=<your_api_key_here> census:updated
-
+# Run the Dockerized pipeline 
+docker pull nsaph/census_series:latest
+docker run -v <output_path>:/app/data/output --env CENSUS_API_KEY=<your_api_key_here> nsaph/census_series:latest
 ```
 
 Note: Remember to replace your_api_key_here with your actual Census API key.
+
+If you want to build your own container try
+
+```
+# Build the Docker image
+docker build --build-arg -t census_series .
+```
