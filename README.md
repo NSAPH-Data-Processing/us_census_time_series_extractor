@@ -142,6 +142,6 @@ docker build -t census_series .
 ```
 For multiplatform
 ```
-docker buildx build --platform linux/amd64,linux/arm64 -t nsaph/census_series:v0 . --push
+docker buildx build --platform linux/amd64,linux/arm64 -t nsaph/census_series:<version> . --push
 ```
 Remember this step is unnecessary as the built image is availabe under `nsaph/census_series:latest`.
