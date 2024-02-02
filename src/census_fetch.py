@@ -1,13 +1,9 @@
-#import necessary libraries
-import argparse
 import requests
 import pandas as pd
 import numpy as np
-import yaml
-import os
+import hydra
 
-
-def get_data(year, geo_type, table_name, variable_list, census_type):
+def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
 
     #helper dictionary for URL creation
     geography_dict = {'county': 'county:*', 'state': 'state:*', 'zcta': 'zip%20code%20tabulation%20area:*'}
@@ -19,7 +15,7 @@ def get_data(year, geo_type, table_name, variable_list, census_type):
     api_endpoint = f'https://api.census.gov/data/{year}/{census_type}/{table_name}'
 
     # Construct the URL with the parameters
-    url = f'{api_endpoint}?get={variable_list}&for={geography}&key={args.api_key}'
+    url = f'{api_endpoint}?get={variable_list}&for={geography}&key={api_key}'
     #print(url)
 
     # Make the API request
@@ -61,18 +57,17 @@ def get_data(year, geo_type, table_name, variable_list, census_type):
     else:
         return False, None
 
+def process_variable_dict(year, geo_type, census_type, table_name, year_codes, variable_name, api_key):
 
-def process_variable_dict(year, geo_type, census_type, table_name, year_variables, variable_name ):
-
-    if 'den' in year_variables: 
-        den_list = year_variables['den']
-        num_list = year_variables['num']
+    if 'den' in year_codes: 
+        den_list = year_codes['den']
+        num_list = year_codes['num']
         if den_list is None and num_list is None:
             return None
         all_var_list = den_list + num_list
     
     else:
-        num_list = year_variables['num']
+        num_list = year_codes['num']
         all_var_list = num_list
 
     variables = ','.join(all_var_list)
@@ -80,11 +75,11 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_variable
     if variables is None:
         return None
 
-    status, df = get_data(year, geo_type, table_name, variables, census_type)
+    status, df = get_data(year, geo_type, table_name, variables, census_type, api_key)
 
     if status == True:
         df = df.apply(pd.to_numeric, errors='coerce')
-        if 'den' in year_variables:
+        if 'den' in year_codes:
             df[variable_name] = df[num_list].sum(axis=1) / df[den_list].sum(axis=1)
         else:
             df[variable_name] = df[num_list].sum(axis=1)
@@ -106,55 +101,27 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_variable
     else:
         return None
 
-if __name__ == "__main__":
-
-    # Set up command-line argument parser       
-    parser = argparse.ArgumentParser(description='Process Census data.')
-
-    # Define command-line arguments   
-    parser.add_argument('--var_yaml', type=str, help='name of the yaml file') 
-    parser.add_argument('--geo_type', type=str, choices=['county', 'state', 'zcta'], help='Geography type')
-    parser.add_argument('--census_type', type=str, help='Type of Census data')
-    parser.add_argument('--table_name', type=str, help='Name of the table')
-    parser.add_argument('--api_key', type=str, default=os.environ['CENSUS_API_KEY'])
-
-    # Parse command-line arguments
-    args = parser.parse_args()
-
+@hydra.main(config_path="../conf", config_name="config", version_base=None)
+def main(cfg):
     # Extract values from command-line arguments
-    geo_type = args.geo_type
-    census_type = args.census_type
-    table_name = args.table_name
-    yaml_file = args.var_yaml
-    api_key = args.api_key
-
-
-    data_dir_path = './data/input'
-    yaml_file_path = os.path.join(data_dir_path, yaml_file)
-
-    with open(yaml_file_path, 'r') as file:
-        census_doc = yaml.safe_load(file)
-
-    variables_list = census_doc.keys()
-
+    geo_type = cfg.geo_type
+    census_type = cfg.census.census_type
+    table_name = cfg.census.table_name
+    api_key = cfg.api_key
+    
     df_list = []
 
-    if geo_type == 'county':
-        id_variables = ['county', 'state', 'year']
-    elif geo_type == 'zcta':
-        id_variables = ['zcta', 'year']
-    else:
-        id_variables = ['state', 'year']
-
-    for variable in variables_list:
-        for year in census_doc[variable]:
-            variable_year_doc = census_doc[variable][year]
-            df = process_variable_dict(year, geo_type, census_type, table_name, variable_year_doc, variable)
+    for variable, years in cfg.census.codes.items():
+        for year, year_codes in years.items():
+            df = process_variable_dict(year, geo_type, census_type, table_name, year_codes, variable, api_key)
             if df is not None:
-                melted_df = pd.melt(df, id_vars=id_variables, value_vars=[variable], var_name='variable', value_name='value')
+                if geo_type == 'county':
+                    df['county'] = df['county'] + df['state']
+                    df.drop(columns=['state'], inplace=True)
+                melted_df = pd.melt(df, id_vars=[geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
                 df_list.append(melted_df)
             else: 
-                print(f"'WARN: Cannot generate for year: {year}, variable {variable}")
+                print(f"'WARN: Cannot generate for year: {year}, variable {variable}, table {table_name}, geo_type {geo_type}'")
     
     #concat the df
     final_df = pd.concat(df_list, axis=0, ignore_index=True)
@@ -164,10 +131,11 @@ if __name__ == "__main__":
         final_df['year'] = final_df['year'] - 2 
 
     # Generate a file name based on variable, table, year, and geography type
-    file_name = f'{table_name}_{geo_type}' + '.csv'
+    # set index
+    final_df.set_index([geo_type], inplace=True)
+    final_df.to_parquet(f'data/output/census_series/{table_name}_{geo_type}.parquet')
+    print(f"GENERATED file = '{table_name}_{geo_type}.parquet'")
 
-    # Save the DataFrame to a CSV file
-    file_save_dir = './data/output/census_series'
-    file_save_path = os.path.join(file_save_dir, file_name)
-    final_df.to_csv(file_save_path, index=False)
-    print(f"GENERATED file = '{table_name}_{geo_type}.csv'")
+if __name__ == "__main__":
+    main()
+    
