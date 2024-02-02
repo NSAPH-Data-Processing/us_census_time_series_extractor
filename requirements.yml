@@ -1,4 +1,4 @@
-name: census_env
+name: census_series
 channels:
   - conda-forge
   - defaults
@@ -6,6 +6,7 @@ dependencies:
   - python=3.11
   - census=0.8.20
   - yaml=0.2.5
+  - pyarrow=14.0.2
   - pip=22.2.2
   - pip:
       - us==2.0.2
