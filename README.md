@@ -104,7 +104,7 @@ export CENSUS_API_KEY='your_api_key_here'
 
 
 # Execute the Python script to generate variables for ACS 5-year estimates at the county level
-python src/census_fetch.py --var_yaml census_acs5.yaml --geo_type county --census_type acs --table_name acs5
+python src/census_fetch.py geo_type=county
 ```
 
 **run snakemake pipeline**
@@ -137,6 +137,11 @@ Note: Remember to replace your_api_key_here with your actual Census API key.
 If you want to build your own container try
 
 ```
-# Build the Docker image
-docker build --build-arg -t census_series .
+# To build the Docker image
+docker build -t census_series .
 ```
+For multiplatform
+```
+docker buildx build --platform linux/amd64,linux/arm64 -t nsaph/census_series:v0 . --push
+```
+Remember this step is unnecessary as the built image is availabe under `nsaph/census_series:latest`.
