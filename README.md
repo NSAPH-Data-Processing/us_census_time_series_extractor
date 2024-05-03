@@ -1,4 +1,4 @@
-# Census Series
+# US Census Bureau Time Series Generator
 
 - [Introduction](#introduction)
 - [Data Description](#data-description)
