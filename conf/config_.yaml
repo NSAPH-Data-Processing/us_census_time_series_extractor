@@ -5,11 +5,7 @@ defaults:
 
 # Arguments to fetch variables
 variable: population # type=str, help='Census variable listed in a census yaml file'
-geo_type: zcta # type=str, choices=['county', 'state', 'zcta'], help='Geographic level'
 api_key: ${oc.env:CENSUS_API_KEY} # type=str, default=os.environ['CENSUS_API_KEY'], help='Census API key'
-
-# Arguments to merge variables
-dataset_name: zcta_totals # type=str, help='Name of the output dataset'
 
 hydra:
   run:
