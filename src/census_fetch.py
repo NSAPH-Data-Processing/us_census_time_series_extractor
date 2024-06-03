@@ -41,7 +41,7 @@ def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
             df.set_index([geo_type,'state'], inplace=True)
 
         if geo_type == 'state':
-            col_list = ['state']+ variable_list.split(',')
+            col_list = ['state'] + variable_list.split(',')
             df = df[col_list]
 
             df.set_index('state', inplace=True)
@@ -52,7 +52,7 @@ def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
             df.rename(columns={'zip code tabulation area':'zcta'},inplace=True)
             df.set_index('zcta', inplace=True)
 
-        return True,df
+        return True, df
     
     else:
         return False, None
@@ -84,7 +84,6 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_codes, v
         else:
             df[variable_name] = df[num_list].sum(axis=1)
 
-        df['year'] = year
         df.drop(columns=all_var_list, inplace=True)
 
         # Fill missing values with NaN
@@ -96,6 +95,7 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_codes, v
         for column in numerical_columns:
             df[column] = df[column].apply(lambda x: np.nan if pd.notna(x) and x < 0 else x)
 
+        df['year'] = year
         return df.reset_index()
     
     else:
@@ -128,7 +128,7 @@ def main(cfg):
     final_df['year'] = final_df['year'].astype('int')
 
     if table_name == 'acs5':
-        final_df['year'] = final_df['year'] - 2 
+        final_df['year'] = final_df['year'] - 2 # we assign the middle year of the 5-year period
 
     # Generate a file name based on variable, table, year, and geography type
     # set index
