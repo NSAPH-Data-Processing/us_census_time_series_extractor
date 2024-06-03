@@ -19,9 +19,7 @@ print(f"dataset_name: {dataset_name}")
 # == Define rules ==
 rule all:
     input:
-        expand(f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet", 
-            variable=variable_list
-        )
+        f"data/output/census_series/{dataset_name}.parquet"
 
 rule fetch_variables:
     output:
@@ -29,4 +27,16 @@ rule fetch_variables:
     shell:
         f"""
         PYTHONPATH=. python src/fetch_variables.py variable={{wildcards.variable}} 
+        """
+
+rule merge_variables:
+    input:
+        expand(f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet", 
+            variable=variable_list
+        )
+    output:
+        f"data/output/census_series/{dataset_name}.parquet"
+    shell:
+        f"""
+        PYTHONPATH=. python src/merge_variables.py 
         """
