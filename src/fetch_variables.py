@@ -118,33 +118,31 @@ def process_variable_dict(year, geo_type, dataset, variable_codes, variable_labe
 
 @hydra.main(config_path="../conf", config_name="config_", version_base=None)
 def main(cfg):
-    validate.validate_census_yaml(cfg)
-    all_vars_list = []
-    for variable in cfg.census:
-        var_df_list = []
-        for survey in cfg.census[variable]:
-            if cfg.census[variable][survey].segments is None:
-                continue
-            for segment in cfg.census[variable][survey].segments:
-                for year in segment.years:
-                    dataset = segment['dataset']
-                    variable_codes = segment['codes']
-                    variable_label = variable
-                    print(f"Generating for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
-                    df = process_variable_dict(year, cfg.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
-                    if df is None:
-                        raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
-                    else:                            
-                        #df = pd.melt(df, id_vars=[cfg.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
-                        var_df_list.append(df)
-        var_df = pd.concat(var_df_list)
-        all_vars_list.append(var_df)
+    validate.validate_census_variable(cfg)
+    variable = cfg.variable
 
-    # concat the df
-    all_vars_df = pd.concat(all_vars_list, axis=1)
-    # assign a file name based on variable, table, year, and geography type
-    all_vars_df.to_parquet(f'data/output/census_series/census_{geo_type}.parquet')
-    print(f"GENERATED file = 'census_{geo_type}.parquet'")
+    var_df_list = []
+    for survey in cfg.census[variable]:
+        if cfg.census[variable][survey].segments is None:
+            continue
+        for segment in cfg.census[variable][survey].segments:
+            for year in segment.years:
+                dataset = segment['dataset']
+                variable_codes = segment['codes']
+                variable_label = variable
+                print(f"Generating for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
+                df = process_variable_dict(year, cfg.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
+                if df is None:
+                    raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
+                else:                            
+                    #df = pd.melt(df, id_vars=[cfg.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
+                    var_df_list.append(df)
+    var_df = pd.concat(var_df_list)
+
+    # assign a file name based on dataset name and variable
+    filename = f'{cfg.dataset_name}__{variable}.parquet'
+    var_df.to_parquet(f'data/intermediate/census_variables/{filename}')
+    print(f"GENERATED file {filename}")
 
 if __name__ == "__main__":
     main()
