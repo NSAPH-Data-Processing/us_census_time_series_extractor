@@ -1,3 +1,5 @@
 # if the files are stored in local, then paths are null
+intermediate:
+  census_variables: null
 output:
   census_series: null
