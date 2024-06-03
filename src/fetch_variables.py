@@ -116,7 +116,7 @@ def process_variable_dict(year, geo_type, dataset, variable_codes, variable_labe
     else:
         return None
 
-@hydra.main(config_path="../conf", config_name="config_", version_base=None)
+@hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     validate.validate_census_variable(cfg)
     variable = cfg.variable

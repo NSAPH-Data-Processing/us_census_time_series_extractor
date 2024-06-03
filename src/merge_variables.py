@@ -2,7 +2,7 @@ import pandas as pd
 import duckdb
 import hydra
 
-@hydra.main(config_path="../conf", config_name="config_", version_base=None)
+@hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     # == concat the df's ==
     all_vars_list = []
