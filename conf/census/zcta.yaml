@@ -1,4 +1,3 @@
-
 population:
   dec:
     years: [2000, 2010, 2020]
@@ -11,10 +10,13 @@ population:
         dataset: dec/dhc
         num:
           - P1_001N #!!Total
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01003_001E #Estimate!!Total
@@ -31,10 +33,13 @@ median_age:
         dataset: dec/dhc
         num:
           - P13_001N #!!Median Age--!!Both sexes
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01002_001E #Estimate!!Median age!!Total
@@ -69,10 +74,13 @@ pop_under_20_years:
           - P12_029N #!!Total:!!Female:!!10 to 14 years
           - P12_030N #!!Total:!!Female:!!15 to 17 years
           - P12_031N #!!Total:!!Female:!!18 and 19 years
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01001_003E	#Estimate!!Total!!Male!!Under 5 years
@@ -116,10 +124,13 @@ pop_20_34_years:
           - P12_034N #!!Total:!!Female:!!22 to 24 years
           - P12_035N #!!Total:!!Female:!!25 to 29 years
           - P12_036N #!!Total:!!Female:!!30 to 34 years
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01001_008E	#Estimate!!Total!!Male!!20 years
@@ -132,6 +143,7 @@ pop_20_34_years:
           - B01001_034E	#Estimate!!Total!!Female!!22 to 24 years
           - B01001_035E	#Estimate!!Total!!Female!!25 to 29 years
           - B01001_036E	#Estimate!!Total!!Female!!30 to 34 years
+
 pop_35_49_years:
   dec:
     years: [2000, 2010, 2020]
@@ -154,10 +166,13 @@ pop_35_49_years:
           - P12_037N #!!Total:!!Female:!!35 to 39 years
           - P12_038N #!!Total:!!Female:!!40 to 44 years
           - P12_039N #!!Total:!!Female:!!45 to 49 years
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01001_013E	#Estimate!!Total!!Male!!35 to 39 years
@@ -193,10 +208,13 @@ pop_50_64_years:
           - P12_041N #!!Total:!!Female:!!55 to 59 years
           - P12_042N #!!Total:!!Female:!!60 and 61 years
           - P12_043N #!!Total:!!Female:!!62 to 64 years
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01001_016E	#Estimate!!Total!!Male!!50 to 54 years
@@ -242,10 +260,13 @@ pop_over_65_years:
           - P12_047N #Estimate!!Total!!Female!!75 to 79 years
           - P12_048N #Estimate!!Total!!Female!!80 to 84 years
           - P12_049N #Estimate!!Total!!Female!!85 years and over
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.`
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B01001_020E	#Estimate!!Total!!Male!!65 and 66 years
@@ -277,10 +298,13 @@ pop_white:
         dataset: dec/dhc
         num:
           - P8_003N #!!Total:!!Population of one race:!!White alone
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B02001_002E	#Estimate!!Total!!White alone
@@ -301,10 +325,13 @@ pop_black:
         dataset: dec/dhc
         num:
           - P8_004N #!!!!Total:!!Population of one race:!!Black or African American alone
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B02001_003E	#Estimate!!Total!!Black or African American alone
@@ -325,10 +352,13 @@ pop_native:
         dataset: dec/dhc
         num:
           - P8_005N #!!Total:!!Population of one race:!!American Indian and Alaska Native alone
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B02001_004E	#Estimate!!Total!!American Indian and Alaska Native alone 
@@ -349,10 +379,13 @@ pop_asian:
         dataset: dec/dhc
         num:
           - P8_006N #!!Total:!!Population of one race:!!Asian alone
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B02001_005E	#Estimate!!Total!!Asian alone
@@ -373,10 +406,13 @@ pop_hispanic:
         dataset: dec/dhc
         num:
           - P4_003N #!!Total:!!Hispanic or Latino
+  acs1:
+    years: null
+    segments: null
   acs5: # TODO: validate acs5 years for pop_hispanic variable
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023] 
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023] 
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B03001_003E	#Estimate!!Total!!Hispanic or Latino
@@ -389,10 +425,13 @@ pop_non_us_citizen:
         dataset: dec/sf1
         num:
           - P021015 #Total!!Foreign born!!Not a citizen
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B05001_006E	#Estimate!!Total!!Not a U.S. citizen
@@ -408,10 +447,13 @@ pop_higher_education_enrolled:
           - P036021 #Total!!Male!!Enrolled in graduate or professional school
           - P036041 #Total!!Female!!Enrolled in college, undergraduate years
           - P036044 #Total!!Female!!Enrolled in graduate or professional school
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B14001_008E	#Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
@@ -432,10 +474,13 @@ pop_higher_education_attained:
         - P037033 #Total!!Female!!Master's degree
         - P037034 #Total!!Female!!Professional school degree
         - P037035 #Total!!Female!!Doctorate degree
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B15001_010E #Estimate!!Total!!Male!!18 to 24 years!!Graduate or professional degree
@@ -457,10 +502,13 @@ pop_poverty:
         dataset: dec/sf3
         num:
           - P087002 #Total!!Income in 1999 below poverty level
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
@@ -481,10 +529,13 @@ housing_units:
         dataset: dec/dhc
         num:
           - H3_001N #!!Total
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B25001_001E #Estimate!!Total
@@ -505,10 +556,13 @@ housing_occupied:
         dataset: dec/dhc
         num:
           - H3_002N #!!Total:!!Occupied
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B25002_002E #Estimate!!Total!!Occupied
@@ -529,10 +583,13 @@ housing_renter_occupied:
         dataset: dec/dhc
         num:
           - H4_004N #!!Total:!!Renter occupied
+  acs1:
+    years: null
+    segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
         dataset: acs/acs5
         num:
           - B25003_003E #Estimate!!Total!!Renter occupied

@@ -1,0 +1,11 @@
+defaults:
+  - _self_
+  - datapaths: datapaths
+  - census: zcta
+ 
+geo_type: zcta # type=str, choices=['county', 'state', 'zcta'], help='Geographic level')
+api_key: ${oc.env:CENSUS_API_KEY} # type=str, default=os.environ['CENSUS_API_KEY'])
+
+hydra:
+  run:
+    dir: logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
