@@ -122,25 +122,25 @@ def main(cfg):
     variable = cfg.variable
 
     var_df_list = []
-    for survey in cfg.census[variable]:
-        if cfg.census[variable][survey].segments is None:
+    for survey in cfg.census.variables[variable]:
+        if cfg.census.variables[variable][survey].segments is None:
             continue
-        for segment in cfg.census[variable][survey].segments:
+        for segment in cfg.census.variables[variable][survey].segments:
             for year in segment.years:
                 dataset = segment['dataset']
                 variable_codes = segment['codes']
                 variable_label = variable
-                print(f"Generating for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
-                df = process_variable_dict(year, cfg.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
+                print(f"Generating for year: {year}, geo_type {cfg.census.geo_type}, dataset {dataset}, variable {variable_label}")
+                df = process_variable_dict(year, cfg.census.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
                 if df is None:
-                    raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
+                    raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.census.geo_type}, dataset {dataset}, variable {variable_label}")
                 else:                            
-                    #df = pd.melt(df, id_vars=[cfg.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
+                    #df = pd.melt(df, id_vars=[cfg.census.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
                     var_df_list.append(df)
     var_df = pd.concat(var_df_list)
 
     # assign a file name based on dataset name and variable
-    filename = f'{cfg.dataset_name}__{variable}.parquet'
+    filename = f'{cfg.census.dataset_name}__{variable}.parquet'
     var_df.to_parquet(f'data/intermediate/census_variables/{filename}')
     print(f"GENERATED file {filename}")
 
