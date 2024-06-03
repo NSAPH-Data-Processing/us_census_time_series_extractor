@@ -2,9 +2,9 @@ import requests
 import pandas as pd
 import numpy as np
 import hydra
-import sys
+import utils.validate as validate
 
-def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
+def get_data(year, geo_type, dataset, variable_list, api_key):
 
     #helper dictionary for URL creation
     geography_dict = {'county': 'county:*', 'state': 'state:*', 'zcta': 'zip%20code%20tabulation%20area:*'}
@@ -13,7 +13,7 @@ def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
     geography = geography_dict[geo_type]
 
     #structure for api endpoint
-    api_endpoint = f'https://api.census.gov/data/{year}/{census_type}/{table_name}'
+    api_endpoint = f'https://api.census.gov/data/{year}/{dataset}'
 
     # Construct the URL with the parameters
     url = f'{api_endpoint}?get={variable_list}&for={geography}&key={api_key}'
@@ -35,40 +35,36 @@ def get_data(year, geo_type, table_name, variable_list, census_type, api_key):
         df = None
 
     if status == 200:
-
         if geo_type == 'county':
             col_list = [geo_type, 'state'] + variable_list.split(',')
             df = df[col_list]
-            df.set_index([geo_type,'state'], inplace=True)
-
+            df['county'] = df['county'] + df['state']
+            df.drop(columns=['state'], inplace=True)
+            return True, df.set_index('county')
         if geo_type == 'state':
             col_list = ['state'] + variable_list.split(',')
             df = df[col_list]
-
-            df.set_index('state', inplace=True)
-
+            return True, df.set_index('state')
         if geo_type == 'zcta':
             col_list = ['zip code tabulation area'] + variable_list.split(',')
             df = df[col_list]
             df.rename(columns={'zip code tabulation area':'zcta'},inplace=True)
-            df.set_index('zcta', inplace=True)
-
-        return True, df
+            return True, df.set_index('zcta')
     
     else:
         return False, None
 
-def process_variable_dict(year, geo_type, census_type, table_name, year_codes, variable_name, api_key):
-
-    if 'den' in year_codes: 
-        den_list = year_codes['den']
-        num_list = year_codes['num']
+def process_variable_dict(year, geo_type, dataset, variable_codes, variable_label, api_key):
+    # == identify the variables to fetch ==
+    if 'den' in variable_codes: 
+        den_list = variable_codes['den']
+        num_list = variable_codes['num']
         if den_list is None and num_list is None:
             return None
         all_var_list = den_list + num_list
     
     else:
-        num_list = year_codes['num']
+        num_list = variable_codes['num']
         all_var_list = num_list
 
     variables = ','.join(all_var_list)
@@ -76,17 +72,20 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_codes, v
     if variables is None:
         return None
 
-    status, df = get_data(year, geo_type, table_name, variables, census_type, api_key)
+    # == fetch the data ==
+    status, df = get_data(year, geo_type, dataset, variables, api_key)
 
     if status == True:
+        # == transform to ratio ==
         df = df.apply(pd.to_numeric, errors='coerce')
-        if 'den' in year_codes:
-            df[variable_name] = df[num_list].sum(axis=1) / df[den_list].sum(axis=1)
+        if 'den' in variable_codes:
+            df[variable_label] = df[num_list].sum(axis=1) / df[den_list].sum(axis=1)
         else:
-            df[variable_name] = df[num_list].sum(axis=1)
+            df[variable_label] = df[num_list].sum(axis=1)
 
         df.drop(columns=all_var_list, inplace=True)
 
+        # == clean df ==
         # Fill missing values with NaN
         df = df.fillna(np.nan)
     
@@ -96,68 +95,56 @@ def process_variable_dict(year, geo_type, census_type, table_name, year_codes, v
         for column in numerical_columns:
             df[column] = df[column].apply(lambda x: np.nan if pd.notna(x) and x < 0 else x)
 
-        df['year'] = year
-        return df.reset_index()
-    
+        # Assign year
+        # if dataset contains 'acs5', assign the midyear of the ACS5 5-year estimates
+        if 'acs5' in dataset:
+            df['year'] = year - 2
+        else: 
+            df['year'] = year
+
+        # Set index
+        df.reset_index(inplace=True)
+        df['dataset'] = dataset
+
+        if geo_type == 'county':
+            return df.set_index(['dataset','year','county'])
+        if geo_type == 'state':
+            return df.set_index(['dataset','year','state'])
+        if geo_type == 'zcta':
+            return df.set_index(['dataset','year','zcta'])
+
     else:
         return None
 
-def validate_census_yaml(cfg):
-    # == validate segment years cover the years of each variable/survey ==
-    for variable, survey in cfg.census.items():
-        years = cfg.census[variable][survey].years
-        # concatenate segment years
-        segment_years = []
-        for segment in cfg.census[variable][survey].segment.items():
-            segment_years.append(segment.years)
-        # if segment_years is not the same as years, raise an error and stop the program
-        if set(segment_years) != set(years):
-            raise ValueError(f"Years in segments do not match years for variable {variable} and survey {survey}") 
-            sys.exit(1)
-    
-    # == validate all variables have surveys dec, acs1, and acs5 ==
-    for variable in cfg.census:
-        if set(cfg.census[variable].items()) != {'dec', 'acs1', 'acs5'}:
-            raise ValueError(f"Variable {variable} does not have all surveys dec, acs1, and acs5")
-            sys.exit(1)
-            
-
-
 @hydra.main(config_path="../conf", config_name="config_", version_base=None)
 def main(cfg):
-    validate_census_yaml(cfg)
-    # # Extract values from command-line arguments
-    # geo_type = cfg.geo_type
-    # census_type = cfg.census.census_type
-    # table_name = cfg.census.table_name
-    # api_key = cfg.api_key
-    
-    # df_list = []
+    validate.validate_census_yaml(cfg)
+    all_vars_list = []
+    for variable in cfg.census:
+        var_df_list = []
+        for survey in cfg.census[variable]:
+            if cfg.census[variable][survey].segments is None:
+                continue
+            for segment in cfg.census[variable][survey].segments:
+                for year in segment.years:
+                    dataset = segment['dataset']
+                    variable_codes = segment['codes']
+                    variable_label = variable
+                    print(f"Generating for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
+                    df = process_variable_dict(year, cfg.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
+                    if df is None:
+                        raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.geo_type}, dataset {dataset}, variable {variable_label}")
+                    else:                            
+                        #df = pd.melt(df, id_vars=[cfg.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
+                        var_df_list.append(df)
+        var_df = pd.concat(var_df_list)
+        all_vars_list.append(var_df)
 
-    # for variable, years in cfg.census.codes.items():
-    #     for year, year_codes in years.items():
-    #         df = process_variable_dict(year, geo_type, census_type, table_name, year_codes, variable, api_key)
-    #         if df is not None:
-    #             if geo_type == 'county':
-    #                 df['county'] = df['county'] + df['state']
-    #                 df.drop(columns=['state'], inplace=True)
-    #             melted_df = pd.melt(df, id_vars=[geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
-    #             df_list.append(melted_df)
-    #         else: 
-    #             print(f"'WARN: Cannot generate for year: {year}, variable {variable}, table {table_name}, geo_type {geo_type}'")
-    
-    # #concat the df
-    # final_df = pd.concat(df_list, axis=0, ignore_index=True)
-    # final_df['year'] = final_df['year'].astype('int')
-
-    # if table_name == 'acs5':
-    #     final_df['year'] = final_df['year'] - 2 # we assign the middle year of the 5-year period
-
-    # # Generate a file name based on variable, table, year, and geography type
-    # # set index
-    # final_df.set_index([geo_type], inplace=True)
-    # final_df.to_parquet(f'data/output/census_series/{table_name}_{geo_type}.parquet')
-    # print(f"GENERATED file = '{table_name}_{geo_type}.parquet'")
+    # concat the df
+    all_vars_df = pd.concat(all_vars_list, axis=1)
+    # assign a file name based on variable, table, year, and geography type
+    all_vars_df.to_parquet(f'data/output/census_series/census_{geo_type}.parquet')
+    print(f"GENERATED file = 'census_{geo_type}.parquet'")
 
 if __name__ == "__main__":
     main()
