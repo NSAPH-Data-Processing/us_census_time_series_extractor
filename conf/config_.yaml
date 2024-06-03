@@ -1,7 +1,7 @@
 defaults:
   - _self_
   - datapaths: datapaths
-  - census: zcta_totals
+  - census: zcta_test
 
 # Arguments to fetch variables
 variable: population # type=str, help='Census variable listed in a census yaml file'
