@@ -407,16 +407,19 @@ pop_asian:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - P007005 #Total!!Asian alone
+        codes:
+          num:
+            - P007005 #Total!!Asian alone
       - years: [2010]
         dataset: dec/sf1
-        num:
-          - P008006 #Total!!Population of one race!!Asian alone
+        codes:
+          num:
+            - P008006 #Total!!Population of one race!!Asian alone
       - years: [2020]
         dataset: dec/dhc
-        num:
-          - P8_006N #!!Total:!!Population of one race:!!Asian alone
+        codes:
+          num:
+            - P8_006N #!!Total:!!Population of one race:!!Asian alone
   acs1:
     year_coverage: null
     segments: null
@@ -425,8 +428,9 @@ pop_asian:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B02001_005E    #Estimate!!Total!!Asian alone
+        codes:
+          num:
+            - B02001_005E    #Estimate!!Total!!Asian alone
 
 pop_hispanic:
   dec:
@@ -434,16 +438,19 @@ pop_hispanic:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - P011001 #Total
+        codes:
+          num:
+            - P011001 #Total
       - years: [2010]
         dataset: dec/sf1
-        num:
-          - P004003 #Total!!Hispanic or Latino
+        codes:
+          num:
+            - P004003 #Total!!Hispanic or Latino
       - years: [2020]
         dataset: dec/dhc
-        num:
-          - P4_003N #!!Total:!!Hispanic or Latino
+        codes:
+          num:
+            - P4_003N #!!Total:!!Hispanic or Latino
   acs1:
     year_coverage: null
     segments: null
@@ -452,8 +459,9 @@ pop_hispanic:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B03001_003E    #Estimate!!Total!!Hispanic or Latino
+        codes:
+          num:
+            - B03001_003E    #Estimate!!Total!!Hispanic or Latino
 
 pop_non_us_citizen:
   dec:
@@ -461,8 +469,9 @@ pop_non_us_citizen:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - P021015 #Total!!Foreign born!!Not a citizen
+        codes:
+          num:
+            - P021015 #Total!!Foreign born!!Not a citizen
   acs1:
     year_coverage: null
     segments: null
@@ -471,8 +480,9 @@ pop_non_us_citizen:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B05001_006E    #Estimate!!Total!!Not a U.S. citizen
+        codes:
+          num:
+            - B05001_006E    #Estimate!!Total!!Not a U.S. citizen
 
 pop_higher_education_enrolled:
   dec:
@@ -507,14 +517,14 @@ pop_higher_education_attained:
         dataset: dec/sf3
         codes:
           num:
-          - P037015 #Total!!Male!!Bachelor's degree
-          - P037016 #Total!!Male!!Master's degree
-          - P037017 #Total!!Male!!Professional school degree
-          - P037018 #Total!!Male!!Doctorate degree
-          - P037032 #Total!!Female!!Bachelor's degree
-          - P037033 #Total!!Female!!Master's degree
-          - P037034 #Total!!Female!!Professional school degree
-          - P037035 #Total!!Female!!Doctorate degree
+            - P037015 #Total!!Male!!Bachelor's degree
+            - P037016 #Total!!Male!!Master's degree
+            - P037017 #Total!!Male!!Professional school degree
+            - P037018 #Total!!Male!!Doctorate degree
+            - P037032 #Total!!Female!!Bachelor's degree
+            - P037033 #Total!!Female!!Master's degree
+            - P037034 #Total!!Female!!Professional school degree
+            - P037035 #Total!!Female!!Doctorate degree
   acs1:
     year_coverage: null
     segments: null
@@ -542,8 +552,9 @@ pop_poverty:
     segments:
       - years: [2000]
         dataset: dec/sf3
-        num:
-          - P087002 #Total!!Income in 1999 below poverty level
+        codes:
+          num:
+            - P087002 #Total!!Income in 1999 below poverty level
   acs1:
     year_coverage: null
     segments: null
@@ -552,8 +563,9 @@ pop_poverty:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
+        codes:
+          num:
+            - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
 
 housing_units:
   dec:
@@ -561,16 +573,19 @@ housing_units:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - H001001 #Total
+        codes:
+          num:
+            - H001001 #Total
       - years: [2010]
         dataset: dec/sf1
-        num:
-          - H003001 #Total
+        codes:
+          num:
+            - H003001 #Total
       - years: [2020]
         dataset: dec/dhc
-        num:
-          - H3_001N #!!Total
+        codes:
+          num:
+            - H3_001N #!!Total
   acs1:
     year_coverage: null
     segments: null
@@ -579,8 +594,9 @@ housing_units:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B25001_001E #Estimate!!Total
+        codes:
+          num:
+            - B25001_001E #Estimate!!Total
 
 housing_occupied:
   dec:
@@ -588,16 +604,19 @@ housing_occupied:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - H003002 #Total!!Occupied
+        codes:
+          num:
+            - H003002 #Total!!Occupied
       - years: [2010]
         dataset: dec/sf1
-        num:
-          - H003002 #Total!!Occupied
+        codes:
+          num:
+            - H003002 #Total!!Occupied
       - years: [2020]
         dataset: dec/dhc
-        num:
-          - H3_002N #!!Total:!!Occupied
+        codes:
+          num:
+            - H3_002N #!!Total:!!Occupied
   acs1:
     year_coverage: null
     segments: null
@@ -606,8 +625,9 @@ housing_occupied:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B25002_002E #Estimate!!Total!!Occupied
+        codes:
+          num:
+            - B25002_002E #Estimate!!Total!!Occupied
 
 housing_renter_occupied:
   dec:
@@ -615,16 +635,19 @@ housing_renter_occupied:
     segments:
       - years: [2000]
         dataset: dec/sf1
-        num:
-          - H004003 #Total!!Renter occupied
+        codes:
+          num:
+            - H004003 #Total!!Renter occupied
       - years: [2010]
         dataset: dec/sf1
-        num:
-          - H004004 #Total!!Renter occupied
+        codes:
+          num:
+            - H004004 #Total!!Renter occupied
       - years: [2020]
         dataset: dec/dhc
-        num:
-          - H4_004N #!!Total:!!Renter occupied
+        codes:
+          num:
+            - H4_004N #!!Total:!!Renter occupied
   acs1:
     year_coverage: null
     segments: null
@@ -633,5 +656,6 @@ housing_renter_occupied:
     segments:
       - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
-        num:
-          - B25003_003E #Estimate!!Total!!Renter occupied
+        codes:
+          num:
+            - B25003_003E #Estimate!!Total!!Renter occupied
