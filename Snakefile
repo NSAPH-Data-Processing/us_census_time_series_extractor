@@ -13,17 +13,19 @@ census_cfg = yaml.safe_load(open(f"conf/census/{defaults_dict['census']}.yaml", 
 # == Define variables ==
 variable_list = list(census_cfg.keys())
 print(f"variable_list: {variable_list}")
+dataset_name = census_cfg['dataset_name']
+print(f"dataset_name: {dataset_name}")
 
 # == Define rules ==
 rule all:
     input:
-        expand(f"data/intermediate/census_variables/{config['dataset_name']}__{{variable}}.parquet", 
+        expand(f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet", 
             variable=variable_list
         )
 
 rule fetch_variables:
     output:
-        f"data/intermediate/census_variables/{config['dataset_name']}__{{variable}}.parquet"
+        f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet"
     shell:
         f"""
         PYTHONPATH=. python src/fetch_variables.py variable={{wildcards.variable}} 
