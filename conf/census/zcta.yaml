@@ -1,6 +1,11 @@
+# variable:
+#   dec:
+#     year_coverage: null
+#     segments: null
+
 population:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -11,19 +16,19 @@ population:
         num:
           - P1_001N #!!Total
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B01003_001E #Estimate!!Total
 
 median_age:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -34,19 +39,19 @@ median_age:
         num:
           - P13_001N #!!Median Age--!!Both sexes
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B01002_001E #Estimate!!Median age!!Total
 
 pop_under_20_years:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -75,28 +80,28 @@ pop_under_20_years:
           - P12_030N #!!Total:!!Female:!!15 to 17 years
           - P12_031N #!!Total:!!Female:!!18 and 19 years
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B01001_003E	#Estimate!!Total!!Male!!Under 5 years
-          - B01001_004E	#Estimate!!Total!!Male!!5 to 9 years
-          - B01001_005E	#Estimate!!Total!!Male!!10 to 14 years
-          - B01001_006E	#Estimate!!Total!!Male!!15 to 17 years
-          - B01001_007E	#Estimate!!Total!!Male!!18 and 19 years
-          - B01001_027E	#Estimate!!Total!!Female!!Under 5 years
-          - B01001_028E	#Estimate!!Total!!Female!!5 to 9 years
-          - B01001_029E	#Estimate!!Total!!Female!!10 to 14 years
-          - B01001_030E	#Estimate!!Total!!Female!!15 to 17 years
-          - B01001_031E	#Estimate!!Total!!Female!!18 and 19 years
+          - B01001_003E    #Estimate!!Total!!Male!!Under 5 years
+          - B01001_004E    #Estimate!!Total!!Male!!5 to 9 years
+          - B01001_005E    #Estimate!!Total!!Male!!10 to 14 years
+          - B01001_006E    #Estimate!!Total!!Male!!15 to 17 years
+          - B01001_007E    #Estimate!!Total!!Male!!18 and 19 years
+          - B01001_027E    #Estimate!!Total!!Female!!Under 5 years
+          - B01001_028E    #Estimate!!Total!!Female!!5 to 9 years
+          - B01001_029E    #Estimate!!Total!!Female!!10 to 14 years
+          - B01001_030E    #Estimate!!Total!!Female!!15 to 17 years
+          - B01001_031E    #Estimate!!Total!!Female!!18 and 19 years
 
 pop_20_34_years:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -125,28 +130,28 @@ pop_20_34_years:
           - P12_035N #!!Total:!!Female:!!25 to 29 years
           - P12_036N #!!Total:!!Female:!!30 to 34 years
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B01001_008E	#Estimate!!Total!!Male!!20 years
-          - B01001_009E	#Estimate!!Total!!Male!!21 years
-          - B01001_010E	#Estimate!!Total!!Male!!22 to 24 years
-          - B01001_011E	#Estimate!!Total!!Male!!25 to 29 years
-          - B01001_012E	#Estimate!!Total!!Male!!30 to 34 years
-          - B01001_032E	#Estimate!!Total!!Female!!20 years
-          - B01001_033E	#Estimate!!Total!!Female!!21 years
-          - B01001_034E	#Estimate!!Total!!Female!!22 to 24 years
-          - B01001_035E	#Estimate!!Total!!Female!!25 to 29 years
-          - B01001_036E	#Estimate!!Total!!Female!!30 to 34 years
+          - B01001_008E    #Estimate!!Total!!Male!!20 years
+          - B01001_009E    #Estimate!!Total!!Male!!21 years
+          - B01001_010E    #Estimate!!Total!!Male!!22 to 24 years
+          - B01001_011E    #Estimate!!Total!!Male!!25 to 29 years
+          - B01001_012E    #Estimate!!Total!!Male!!30 to 34 years
+          - B01001_032E    #Estimate!!Total!!Female!!20 years
+          - B01001_033E    #Estimate!!Total!!Female!!21 years
+          - B01001_034E    #Estimate!!Total!!Female!!22 to 24 years
+          - B01001_035E    #Estimate!!Total!!Female!!25 to 29 years
+          - B01001_036E    #Estimate!!Total!!Female!!30 to 34 years
 
 pop_35_49_years:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -167,24 +172,24 @@ pop_35_49_years:
           - P12_038N #!!Total:!!Female:!!40 to 44 years
           - P12_039N #!!Total:!!Female:!!45 to 49 years
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B01001_013E	#Estimate!!Total!!Male!!35 to 39 years
-          - B01001_014E	#Estimate!!Total!!Male!!40 to 44 years
-          - B01001_015E	#Estimate!!Total!!Male!!45 to 49 years
-          - B01001_037E	#Estimate!!Total!!Female!!35 to 39 years
-          - B01001_038E	#Estimate!!Total!!Female!!40 to 44 years
-          - B01001_039E	#Estimate!!Total!!Female!!45 to 49 years
+          - B01001_013E    #Estimate!!Total!!Male!!35 to 39 years
+          - B01001_014E    #Estimate!!Total!!Male!!40 to 44 years
+          - B01001_015E    #Estimate!!Total!!Male!!45 to 49 years
+          - B01001_037E    #Estimate!!Total!!Female!!35 to 39 years
+          - B01001_038E    #Estimate!!Total!!Female!!40 to 44 years
+          - B01001_039E    #Estimate!!Total!!Female!!45 to 49 years
 
 pop_50_64_years:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -209,26 +214,26 @@ pop_50_64_years:
           - P12_042N #!!Total:!!Female:!!60 and 61 years
           - P12_043N #!!Total:!!Female:!!62 to 64 years
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B01001_016E	#Estimate!!Total!!Male!!50 to 54 years
-          - B01001_017E	#Estimate!!Total!!Male!!55 to 59 years
-          - B01001_018E	#Estimate!!Total!!Male!!60 and 61 years
-          - B01001_019E	#Estimate!!Total!!Male!!62 to 64 years
-          - B01001_040E	#Estimate!!Total!!Female!!50 to 54 years
-          - B01001_041E	#Estimate!!Total!!Female!!55 to 59 years
-          - B01001_042E	#Estimate!!Total!!Female!!60 and 61 years
-          - B01001_043E	#Estimate!!Total!!Female!!62 to 64 years
+          - B01001_016E    #Estimate!!Total!!Male!!50 to 54 years
+          - B01001_017E    #Estimate!!Total!!Male!!55 to 59 years
+          - B01001_018E    #Estimate!!Total!!Male!!60 and 61 years
+          - B01001_019E    #Estimate!!Total!!Male!!62 to 64 years
+          - B01001_040E    #Estimate!!Total!!Female!!50 to 54 years
+          - B01001_041E    #Estimate!!Total!!Female!!55 to 59 years
+          - B01001_042E    #Estimate!!Total!!Female!!60 and 61 years
+          - B01001_043E    #Estimate!!Total!!Female!!62 to 64 years
 
 pop_over_65_years:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000, 2010]
         dataset: dec/sf1
@@ -261,30 +266,30 @@ pop_over_65_years:
           - P12_048N #Estimate!!Total!!Female!!80 to 84 years
           - P12_049N #Estimate!!Total!!Female!!85 years and over
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.`
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B01001_020E	#Estimate!!Total!!Male!!65 and 66 years
-          - B01001_021E	#Estimate!!Total!!Male!!67 to 69 years
-          - B01001_022E	#Estimate!!Total!!Male!!70 to 74 years
-          - B01001_023E	#Estimate!!Total!!Male!!75 to 79 years
-          - B01001_024E	#Estimate!!Total!!Male!!80 to 84 years
-          - B01001_025E	#Estimate!!Total!!Male!!85 years and over
-          - B01001_044E	#Estimate!!Total!!Female!!65 and 66 years
-          - B01001_045E	#Estimate!!Total!!Female!!67 to 69 years
-          - B01001_046E	#Estimate!!Total!!Female!!70 to 74 years
-          - B01001_047E	#Estimate!!Total!!Female!!75 to 79 years
-          - B01001_048E	#Estimate!!Total!!Female!!80 to 84 years
-          - B01001_049E	#Estimate!!Total!!Female!!85 years and over
+          - B01001_020E    #Estimate!!Total!!Male!!65 and 66 years
+          - B01001_021E    #Estimate!!Total!!Male!!67 to 69 years
+          - B01001_022E    #Estimate!!Total!!Male!!70 to 74 years
+          - B01001_023E    #Estimate!!Total!!Male!!75 to 79 years
+          - B01001_024E    #Estimate!!Total!!Male!!80 to 84 years
+          - B01001_025E    #Estimate!!Total!!Male!!85 years and over
+          - B01001_044E    #Estimate!!Total!!Female!!65 and 66 years
+          - B01001_045E    #Estimate!!Total!!Female!!67 to 69 years
+          - B01001_046E    #Estimate!!Total!!Female!!70 to 74 years
+          - B01001_047E    #Estimate!!Total!!Female!!75 to 79 years
+          - B01001_048E    #Estimate!!Total!!Female!!80 to 84 years
+          - B01001_049E    #Estimate!!Total!!Female!!85 years and over
 
 pop_white:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -299,19 +304,19 @@ pop_white:
         num:
           - P8_003N #!!Total:!!Population of one race:!!White alone
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B02001_002E	#Estimate!!Total!!White alone
+          - B02001_002E    #Estimate!!Total!!White alone
 
 pop_black:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -326,19 +331,19 @@ pop_black:
         num:
           - P8_004N #!!!!Total:!!Population of one race:!!Black or African American alone
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B02001_003E	#Estimate!!Total!!Black or African American alone
+          - B02001_003E    #Estimate!!Total!!Black or African American alone
 
 pop_native:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -353,19 +358,19 @@ pop_native:
         num:
           - P8_005N #!!Total:!!Population of one race:!!American Indian and Alaska Native alone
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B02001_004E	#Estimate!!Total!!American Indian and Alaska Native alone 
+          - B02001_004E    #Estimate!!Total!!American Indian and Alaska Native alone 
 
 pop_asian:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -380,19 +385,19 @@ pop_asian:
         num:
           - P8_006N #!!Total:!!Population of one race:!!Asian alone
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B02001_005E	#Estimate!!Total!!Asian alone
+          - B02001_005E    #Estimate!!Total!!Asian alone
 
 pop_hispanic:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -407,38 +412,38 @@ pop_hispanic:
         num:
           - P4_003N #!!Total:!!Hispanic or Latino
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # TODO: validate acs5 years for pop_hispanic variable
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023] 
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022] 
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B03001_003E	#Estimate!!Total!!Hispanic or Latino
+          - B03001_003E    #Estimate!!Total!!Hispanic or Latino
 
 pop_non_us_citizen:
   dec:
-    years: [2000]
+    year_coverage: [2000]
     segments:
       - years: [2000]
         dataset: dec/sf1
         num:
           - P021015 #Total!!Foreign born!!Not a citizen
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B05001_006E	#Estimate!!Total!!Not a U.S. citizen
+          - B05001_006E    #Estimate!!Total!!Not a U.S. citizen
 
 pop_higher_education_enrolled:
   dec:
-    years: [2000]
+    year_coverage: [2000]
     segments:
       - years: [2000]
         dataset: dec/sf3
@@ -448,20 +453,20 @@ pop_higher_education_enrolled:
           - P036041 #Total!!Female!!Enrolled in college, undergraduate years
           - P036044 #Total!!Female!!Enrolled in graduate or professional school
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
-          - B14001_008E	#Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
+          - B14001_008E    #Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
           - B14001_009E #Estimate!!Total!!Enrolled in school!!Graduate or professional school
 
 pop_higher_education_attained:
   dec:
-    years: [2000]
+    year_coverage: [2000]
     segments:
       - years: [2000]
         dataset: dec/sf3
@@ -475,12 +480,12 @@ pop_higher_education_attained:
         - P037034 #Total!!Female!!Professional school degree
         - P037035 #Total!!Female!!Doctorate degree
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B15001_010E #Estimate!!Total!!Male!!18 to 24 years!!Graduate or professional degree
@@ -496,26 +501,26 @@ pop_higher_education_attained:
 
 pop_poverty:
   dec:
-    years: [2000]
+    year_coverage: [2000]
     segments:
       - years: [2000]
         dataset: dec/sf3
         num:
           - P087002 #Total!!Income in 1999 below poverty level
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
 
 housing_units:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -530,19 +535,19 @@ housing_units:
         num:
           - H3_001N #!!Total
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B25001_001E #Estimate!!Total
 
 housing_occupied:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -557,19 +562,19 @@ housing_occupied:
         num:
           - H3_002N #!!Total:!!Occupied
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B25002_002E #Estimate!!Total!!Occupied
 
 housing_renter_occupied:
   dec:
-    years: [2000, 2010, 2020]
+    year_coverage: [2000, 2010, 2020]
     segments:
       - years: [2000]
         dataset: dec/sf1
@@ -584,12 +589,12 @@ housing_renter_occupied:
         num:
           - H4_004N #!!Total:!!Renter occupied
   acs1:
-    years: null
+    year_coverage: null
     segments: null
   acs5: # for acs5 the year 2011 means 2007-2011, 2012 means 2008-2012, etc.
-    years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    year_coverage: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     segments:
-      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+      - years: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
         dataset: acs/acs5
         num:
           - B25003_003E #Estimate!!Total!!Renter occupied
