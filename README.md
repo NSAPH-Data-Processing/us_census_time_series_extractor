@@ -1,4 +1,4 @@
-# US Census Bureau Time Series Generator
+# US Census Bureau Time Series Extractor
 
 - [Introduction](#introduction)
 - [Data Description](#data-description)
@@ -21,7 +21,7 @@ This repository streamlines the extraction of time series from American Communit
 - ZCTA Coverage: 33120
 - Data Source: The American Community Survey (ACS) is an ongoing survey that provides data every year -- giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population.
 
-### American Community Survey 1-Year Data (ACS5)
+### American Community Survey 1-Year Data (ACS1)
 
 - Time Coverage : 2005 - 2020
 - Population: All 50 states including the District of Columbia, Puerto Rico, and other U.S. territories.
@@ -103,6 +103,8 @@ PYTHONPATH=. python src/fetch_variables.py variable=pop_native
 
 To extract all variables and merge them use the snakemake workflow.
 
+The census variable codes that are used to created the time series are defined in the `yaml` files stored in `conf/census/<yaml_file>`. For example, the pipeline below uses the `zcta_totals.yaml` file. 
+
 ```bash
 # Create and activate the conda environment
 conda env create -f requirements.yml
@@ -113,7 +115,7 @@ export CENSUS_API_KEY='your_api_key_here'
 export PYTHONPATH='.'
 
 # Execute the Snakemake pipeline
-snakemake --cores 1
+snakemake --cores 1 census=zcta_totals
 ```
 
 ### Dockerized Pipeline
