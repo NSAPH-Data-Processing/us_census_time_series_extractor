@@ -1,8 +1,8 @@
-# US Census Bureau Time Series Extractor
+# US Census Bureau Time Series Generator
 
 - [Introduction](#introduction)
 - [Data Description](#data-description)
-- [Codebook](#codebook)
+- [Data Dictionary](#data-dictionary)
 - [Repository Content](#repository-content)
 - [Data Lineage](#data-lineage)
 - [Processing Rules](#processing-rules)
@@ -36,34 +36,22 @@ This repository streamlines the extraction of time series from American Communit
 Puerto Rico, and for the United States.
 - Data Source: Summary File 1 (SF 1) contains the data compiled from the questions asked of all people and about every housing unit. Population items include sex, age, race, Hispanic or Latino origin, household relationship, household type, household size, family type, family size, and group quarters. 
 
-## Codebook
+## Data Dictionary
 
-### For ACS 1-year and ACS 5-year estimates
-
-| Variable Name | Description | Derivation |
-|---|---| --- |
-| pct_blk  | % of the population listed as black  | ```B02001_003E/B02001_001E``` <br> B02001_003E: Estimate!!Total!!Black or African American alone <br> B02001_001E: Estimate!!Total - Race |
-| medhouseholdincome | median household income | `B19013_001E`  <br> B19013_001E: : Median Household Income In The Past 12 Months In 2011 Inflation-Adjusted Dollars |
-| pct_owner_occ | % of housing units occupied by their owner  | `For Years 2009 - 2014: (B11012_004E + B11012_008E + B11012_011E + B11012_014E)/ B11012_001E` <br> B11012_004E: Estimate!!Total!!Family households!!Married-couple family!!Owner-occupied housing units <br> B11012_008E: Estimate!!Total!!Family households!!Other family!!Male householder, no wife present!!Owner-occupied housing units <br> B11012_011E: Estimate!!Total!!Family households!!Other family!!Female householder, no husband present!!Owner-occupied housing units B11012_014E: Estimate!!Total!!Nonfamily households!!Owner-occupied housing units <br> B11012_001E: Estimate!!Total - HOUSEHOLD TYPE BY TENURE <br> `For Years 2015 - 2018: B25011_002E/B25011_001E` <br> B25011_002E: Estimate!!Total!!Owner occupied <br> B25011_001E: Estimate!!Total: TENURE BY HOUSEHOLD TYPE (INCLUDING LIVING ALONE) AND AGE OF HOUSEHOLDER|
-| hispanic| % of the population identified as Hispanic, regardless of reported race  | `B03003_003E/B03003_001E` <br> B03003_003E: Estimate!!Total!!Hispanic or Latino <br> B03003_001E: Estimate!!Total |
-| education | % of the population older than 65 not graduating from high school  | `(B15001_036E+B15001_037E+B15001_077E+B15001_078E)/(B15001_035E+B15001_076E)` <br> B15001_036E: Estimate!!Total!!Male!!65 years and over!!Less than 9th grade <br>  B15001_037E: Estimate!!Total!!Male!!65 years and over!!9th to 12th grade, no diploma <br> B15001_077E: Estimate!!Total!!Female!!65 years and over!!Less than 9th grade <br> B15001_078E: Estimate!!Total!!Female!!65 years and over!!9th to 12th grade, no diploma <br> B15001_035E: Estimate!!Total!!Male!!65 years and over <br> B15001_076E: Estimate!!Total!!Female!!65 years and over |
-
-
-### For Decennial SF1
-
-| Variable Name | Description | Derivation |
-|---|---| --- |
-| pct_blk  | % of the population listed as black  | ``` For the year 2010: P006003/P006001``` <br> P006003: Total races tallied!!Black or African American alone or in combination with one or more other races <br> P006001: Total races tallied <br> ``` For the year 2000: P007003/P007001``` <br> P007003: Estimate!!Total!!Black or African American alone <br> P007001: Estimate!!Total - Race  |
-| pct_owner_occ   |% of housing units occupied by their owner   | ``` For the year 2010: (H004002 + H004003) /H004001``` <br> H004002 : Total!!Owned with a mortgage or a loan <br> H004003: Total!!Owned free and clear <br> H004001: Total - Tenure <br>``` For the year 2000: H004002/H004001``` <br> H004002: Total!!Owner occupied <br> H004001: Total  |
-| hispanic  | % of the population identified as Hispanic, regardless of reported race  | ``` For the year 2010: P004002/P004001``` <br> P004003: Total!!Hispanic or Latino <br> P004001: Total <br> ``` For the year 2000: P004002/P001001``` <br> P004002: Total!!Hispanic or Latino <br> P001001: Total Population  |
+| Column Name| Description|
+|---------------------------------|------------------------------------------------------------------------|
+| `survey`| Type of survey, it takes one of the following values: dec, acs1, acs5|
+| `year`| Year of the variable estimates.|
+| geographic level| Id of geogragraphies at a given geographic level. The column name takes the name of the geographic level (zcta, county, state)|
+| Various sociodemographic columns| Columns containing variables related to sociodemographic characteristics such as population distribution by age groups, ethnic composition, housing statistics, and other demographic and socioeconomic variables. The column name is the name of the variable|
 
 ## Repository Content
 
 The repository contains: 
 
-- [data/input](https://github.com/NSAPH-Data-Processing/census/tree/main/data/input): The directory for input yaml files for each dataset ACS 1-year, ACS 5-year and Decennial SF1 estimates. 
-- [census_fetch.py](https://github.com/NSAPH-Data-Processing/census/blob/main/census_fetch.py): The main script for querying Census API and generating final datasets.
-- [requirements.yml](https://github.com/NSAPH-Data-Processing/census_acs5/blob/dev/requirements.yml): Environment setup file for result reproducibility.
+- [conf/](conf/): configuration files. 
+- [src/fetch_variables.py](src/fetch_variables.py): the main script for querying Census API.
+- [requirements.yml](requirements.yml): conda environment setup.
 
 ## Data Lineage
 
@@ -71,11 +59,11 @@ The repository contains:
 
 - **Extraction** : We leverage the Census API to efficiently extract data.
 
-- **Processing & Final Dataset** : We transform the subset of variables obtained from the API and generate the final datasets for each respective year.
+- **Processing & Final Dataset** : We transform the subset of variables obtained from the API and generate datasets of selected sociodemographic concepts.
 
 ## Processing Rules
 
-**Processing rules applied in census_fetch.py**
+**Processing rules**
 
 To align with the aggregated nature of ACS estimates over 5-year periods, a specific processing rule is employed within the project. Each dataset generated from ACS data is internally tagged to a year that is 2 years prior. This tagging ensures that the data extracted in a given year corresponds to the ACS data collected 2 years later, providing consistency with the 5-year estimates.
 
@@ -83,7 +71,7 @@ For instance, when extracting data for the year 2020 from the ACS, the data is t
 
 **American Community Survey 1-Year Data and Hispanic Variable**
 
-Hispanic data was incorporated starting from the 2009 ACS 1-year estimates and hence not available for the years 20005-2008 for ACS 1-Year estimates and marked as NULL in the data.
+Hispanic data was incorporated starting from the 2009 ACS 1-year estimates and hence not available for the years 20005-2008 for ACS 1-Year estimates.
 
 
 ## Run 
@@ -92,7 +80,9 @@ Hispanic data was incorporated starting from the 2009 ACS 1-year estimates and h
 
 You can run the pipeline steps manually or run the snakemake pipeline described in the Snakefile.
 
-**run pipeline steps manually**
+**Run the pipeline steps manually to fetch a single variable**
+
+For a variable listed in a `conf/census/<census_yaml>` select a variable, for example `pop_native` listed in `conf/census/zcta_totals.yaml`.
 
 ```bash
 # Create and activate the conda environment
@@ -102,13 +92,16 @@ conda activate census_series
 # Set your Census API key
 export CENSUS_API_KEY='your_api_key_here'
 
+# Create the data directory paths
+python utils/create_datapaths.py
 
-# Execute the Python script to generate variables for ACS 5-year estimates at the county level
-python src/census_fetch.py geo_type=county
+# Execute the main script
+PYTHONPATH=. python src/fetch_variables.py variable=pop_native
 ```
 
-**run snakemake pipeline**
+**Run snakemake pipeline**
 
+To extract all variables and merge them use the snakemake workflow.
 
 ```bash
 # Create and activate the conda environment
@@ -117,6 +110,7 @@ conda activate census_series
 
 # Set your Census API key
 export CENSUS_API_KEY='your_api_key_here'
+export PYTHONPATH='.'
 
 # Execute the Snakemake pipeline
 snakemake --cores 1
@@ -144,4 +138,4 @@ For multiplatform
 ```
 docker buildx build --platform linux/amd64,linux/arm64 -t nsaph/census_series:<version> . --push
 ```
-Remember this step is unnecessary as the built image is availabe under `nsaph/census_series:latest`.
+Remember this step is unnecessary as the built image is available under `nsaph/census_series:latest`.
