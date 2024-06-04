@@ -131,6 +131,7 @@ def main(cfg):
                     raise ValueError(f"Cannot generate for year: {year}, geo_type {geo_type}, dataset {dataset}, variable {variable_label}")
                 else:                            
                     df['survey'] = survey
+                    # Set index
                     if geo_type == 'county':
                         df.set_index(['survey','year','county'], inplace=True)
                     if geo_type == 'state':
@@ -142,7 +143,7 @@ def main(cfg):
 
     # assign a file name based on dataset name and variable
     filename = f'{cfg.census.dataset_name}__{variable}.parquet'
-    var_df.reset_index(inplace=True)
+    #var_df.reset_index(inplace=True)
     var_df.to_parquet(f'data/intermediate/census_variables/{filename}')
     print(f"GENERATED file {filename}")
 
