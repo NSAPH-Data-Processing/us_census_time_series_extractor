@@ -1,4 +1,4 @@
-# US Census Bureau Time Series Generator
+# US Census Bureau Time Series Extractor
 
 - [Introduction](#introduction)
 - [Data Description](#data-description)
