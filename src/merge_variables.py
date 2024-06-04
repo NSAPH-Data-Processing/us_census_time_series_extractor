@@ -2,7 +2,7 @@ import pandas as pd
 import duckdb
 import hydra
 
-@hydra.main(config_path="../conf", config_name="config_", version_base=None)
+@hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     # == concat the df's ==
     all_vars_list = []
@@ -14,6 +14,7 @@ def main(cfg):
     # == save parquet ==
     filename = f'data/output/census_series/{cfg.census.dataset_name}.parquet'
     con = duckdb.connect()
+    all_vars_df.reset_index(inplace=True)
     con.register('all_vars', all_vars_df)
     con.execute(f"COPY all_vars TO '{filename}' (FORMAT PARQUET)")
     print(f"GENERATED file {filename}")

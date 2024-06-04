@@ -1,7 +1,7 @@
 import yaml
 
 conda: "requirements.yaml"
-configfile: "conf/config_.yaml"
+configfile: "conf/config.yaml"
 envvars: # this indicates environment vars that must be set, always done in docker
     "PYTHONPATH",  
     "CENSUS_API_KEY"

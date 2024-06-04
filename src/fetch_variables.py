@@ -102,21 +102,14 @@ def process_variable_dict(year, geo_type, dataset, variable_codes, variable_labe
         else: 
             df['year'] = year
 
-        # Set index
+        # Reset index
         df.reset_index(inplace=True)
-        df['dataset'] = dataset
-
-        if geo_type == 'county':
-            return df.set_index(['dataset','year','county'])
-        if geo_type == 'state':
-            return df.set_index(['dataset','year','state'])
-        if geo_type == 'zcta':
-            return df.set_index(['dataset','year','zcta'])
+        return df
 
     else:
         return None
 
-@hydra.main(config_path="../conf", config_name="config_", version_base=None)
+@hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     validate.validate_census_variable(cfg)
     variable = cfg.variable
@@ -130,17 +123,27 @@ def main(cfg):
                 dataset = segment['dataset']
                 variable_codes = segment['codes']
                 variable_label = variable
-                print(f"Generating for year: {year}, geo_type {cfg.census.geo_type}, dataset {dataset}, variable {variable_label}")
-                df = process_variable_dict(year, cfg.census.geo_type, dataset, variable_codes, variable_label, cfg.api_key)
+                geo_type = cfg.census.geo_type
+
+                print(f"Generating for year: {year}, geo_type {geo_type}, dataset {dataset}, variable {variable_label}")
+                df = process_variable_dict(year, geo_type, dataset, variable_codes, variable_label, cfg.api_key)
                 if df is None:
-                    raise ValueError(f"Cannot generate for year: {year}, geo_type {cfg.census.geo_type}, dataset {dataset}, variable {variable_label}")
+                    raise ValueError(f"Cannot generate for year: {year}, geo_type {geo_type}, dataset {dataset}, variable {variable_label}")
                 else:                            
-                    #df = pd.melt(df, id_vars=[cfg.census.geo_type, 'year'], value_vars=[variable], var_name='variable', value_name='value')
+                    df['survey'] = survey
+                    # Set index
+                    if geo_type == 'county':
+                        df.set_index(['survey','year','county'], inplace=True)
+                    if geo_type == 'state':
+                        df.set_index(['survey','year','state'], inplace=True)
+                    if geo_type == 'zcta':
+                        df.set_index(['survey','year','zcta'], inplace=True)
                     var_df_list.append(df)
     var_df = pd.concat(var_df_list)
 
     # assign a file name based on dataset name and variable
     filename = f'{cfg.census.dataset_name}__{variable}.parquet'
+    #var_df.reset_index(inplace=True)
     var_df.to_parquet(f'data/intermediate/census_variables/{filename}')
     print(f"GENERATED file {filename}")
 
