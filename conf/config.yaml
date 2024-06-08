@@ -1,12 +1,681 @@
 defaults:
   - _self_
   - datapaths: datapaths
-  - census: zcta_totals
 
-# Arguments to fetch variables
-variable: population # type=str, help='Census variable listed in a census yaml file'
-api_key: ${oc.env:CENSUS_API_KEY} # type=str, default=os.environ['CENSUS_API_KEY'], help='Census API key'
-
+# logging config
 hydra:
   run:
     dir: logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+
+# minimal arguments
+geo_type:  # 'zcta'  # type=Literal['zcta', 'county', 'state'], help='Geography type to fetch data for'
+survey:   # type=Literal['dec', 'acs1', 'acs5'], help='Census survey to fetch data for'
+variable:   # (e.g. variable=popultion) help='Census variable listed in a census yaml file'
+api_key: ${oc.env:CENSUS_API_KEY} # type=str, default=os.environ['CENSUS_API_KEY'], help='Census API key'
+
+
+# years available for each geography type and survey
+valid_years:
+  county:
+    dec: [2000, 2010, 2020]
+    acs5: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+    acs1: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022]
+  zcta:
+    dec: [2000, 2010, 2020]
+    acs5: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+
+
+# codes in the different census surveys for each concept
+variable_codes:
+  population:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P001001 #Total
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P1_001N #!!Total
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01003_001E #Estimate!!Total
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01003_001E #Estimate!!Total
+
+  median_age:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P013001 #Median age!!Both sexes
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P13_001N #!!Median Age--!!Both sexes
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01002_001E #Estimate!!Median age!!Total
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01002_001E #Estimate!!Median age!!Total
+
+  pop_under_20_years:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P012003 #Total!!Male!!Under 5 years
+            - P012004 #Total!!Male!!5 to 9 years
+            - P012005 #Total!!Male!!10 to 14 years
+            - P012006 #Total!!Male!!15 to 17 years
+            - P012007 #Total!!Male!!18 and 19 years
+            - P012027 #Total!!Female!!Under 5 years
+            - P012028 #Total!!Female!!5 to 9 years
+            - P012029 #Total!!Female!!10 to 14 years
+            - P012030 #Total!!Female!!15 to 17 years
+            - P012031 #Total!!Female!!18 and 19 years
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P12_003N #!!Total:!!Male:!!Under 5 years
+            - P12_004N #!!Total:!!Male:!!5 to 9 years
+            - P12_005N #!!Total:!!Male:!!10 to 14 years
+            - P12_006N #!!Total:!!Male:!!15 to 17 years
+            - P12_007N #!!Total:!!Male:!!18 and 19 years
+            - P12_027N #!!Total:!!Female:!!Under 5 years
+            - P12_028N #!!Total:!!Female:!!5 to 9 years
+            - P12_029N #!!Total:!!Female:!!10 to 14 years
+            - P12_030N #!!Total:!!Female:!!15 to 17 years
+            - P12_031N #!!Total:!!Female:!!18 and 19 years
+
+    acs1: 
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01001_003E    #Estimate!!Total!!Male!!Under 5 years
+            - B01001_004E    #Estimate!!Total!!Male!!5 to 9 years
+            - B01001_005E    #Estimate!!Total!!Male!!10 to 14 years
+            - B01001_006E    #Estimate!!Total!!Male!!15 to 17 years
+            - B01001_007E    #Estimate!!Total!!Male!!18 and 19 years
+            - B01001_027E    #Estimate!!Total!!Female!!Under 5 years
+            - B01001_028E    #Estimate!!Total!!Female!!5 to 9 years
+            - B01001_029E    #Estimate!!Total!!Female!!10 to 14 years
+            - B01001_030E    #Estimate!!Total!!Female!!15 to 17 years
+            - B01001_031E    #Estimate!!Total!!Female!!18 and 19 years
+
+    acs5: 
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01001_003E    #Estimate!!Total!!Male!!Under 5 years
+            - B01001_004E    #Estimate!!Total!!Male!!5 to 9 years
+            - B01001_005E    #Estimate!!Total!!Male!!10 to 14 years
+            - B01001_006E    #Estimate!!Total!!Male!!15 to 17 years
+            - B01001_007E    #Estimate!!Total!!Male!!18 and 19 years
+            - B01001_027E    #Estimate!!Total!!Female!!Under 5 years
+            - B01001_028E    #Estimate!!Total!!Female!!5 to 9 years
+            - B01001_029E    #Estimate!!Total!!Female!!10 to 14 years
+            - B01001_030E    #Estimate!!Total!!Female!!15 to 17 years
+            - B01001_031E    #Estimate!!Total!!Female!!18 and 19 years
+
+  pop_35_49_years:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P012013 #Total!!Male!!35 to 39 years
+            - P012014 #Total!!Male!!40 to 44 years
+            - P012015 #Total!!Male!!45 to 49 years
+            - P012037 #Total!!Female!!35 to 39 years
+            - P012038 #Total!!Female!!40 to 44 years
+            - P012039 #Total!!Female!!45 to 49 years
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P12_013N #!!Total:!!Male:!!35 to 39 years
+            - P12_014N #!!Total:!!Male:!!40 to 44 years
+            - P12_015N #!!Total:!!Male:!!45 to 49 years
+            - P12_037N #!!Total:!!Female:!!35 to 39 years
+            - P12_038N #!!Total:!!Female:!!40 to 44 years
+            - P12_039N #!!Total:!!Female:!!45 to 49 years
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01001_013E    #Estimate!!Total!!Male!!35 to 39 years
+            - B01001_014E    #Estimate!!Total!!Male!!40 to 44 years
+            - B01001_015E    #Estimate!!Total!!Male!!45 to 49 years
+            - B01001_037E    #Estimate!!Total!!Female!!35 to 39 years
+            - B01001_038E    #Estimate!!Total!!Female!!40 to 44 years
+            - B01001_039E    #Estimate!!Total!!Female!!45 to 49 years
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01001_013E    #Estimate!!Total!!Male!!35 to 39 years
+            - B01001_014E    #Estimate!!Total!!Male!!40 to 44 years
+            - B01001_015E    #Estimate!!Total!!Male!!45 to 49 years
+            - B01001_037E    #Estimate!!Total!!Female!!35 to 39 years
+            - B01001_038E    #Estimate!!Total!!Female!!40 to 44 years
+            - B01001_039E    #Estimate!!Total!!Female!!45 to 49 years
+
+  pop_50_64_years:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P012016 #Total!!Male!!50 to 54 years
+            - P012017 #Total!!Male!!55 to 59 years
+            - P012018 #Total!!Male!!60 and 61 years
+            - P012019 #Total!!Male!!62 to 64 years
+            - P012040 #Total!!Female!!50 to 54 years
+            - P012041 #Total!!Female!!55 to 59 years
+            - P012042 #Total!!Female!!60 and 61 years
+            - P012043 #Total!!Female!!62 to 64 years
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P12_016N #!!Total:!!Male:!!50 to 54 years
+            - P12_017N #!!Total:!!Male:!!55 to 59 years
+            - P12_018N #!!Total:!!Male:!!60 and 61 years
+            - P12_019N #!!Total:!!Male:!!62 to 64 years
+            - P12_040N #!!Total:!!Female:!!50 to 54 years
+            - P12_041N #!!Total:!!Female:!!55 to 59 years
+            - P12_042N #!!Total:!!Female:!!60 and 61 years
+            - P12_043N #!!Total:!!Female:!!62 to 64 years
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01001_016E    #Estimate!!Total!!Male!!50 to 54 years
+            - B01001_017E    #Estimate!!Total!!Male!!55 to 59 years
+            - B01001_018E    #Estimate!!Total!!Male!!60 and 61 years
+            - B01001_019E    #Estimate!!Total!!Male!!62 to 64 years
+            - B01001_040E    #Estimate!!Total!!Female!!50 to 54 years
+            - B01001_041E    #Estimate!!Total!!Female!!55 to 59 years
+            - B01001_042E    #Estimate!!Total!!Female!!60 and 61 years
+            - B01001_043E    #Estimate!!Total!!Female!!62 to 64 years
+
+    acs5: 
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01001_016E    #Estimate!!Total!!Male!!50 to 54 years
+            - B01001_017E    #Estimate!!Total!!Male!!55 to 59 years
+            - B01001_018E    #Estimate!!Total!!Male!!60 and 61 years
+            - B01001_019E    #Estimate!!Total!!Male!!62 to 64 years
+            - B01001_040E    #Estimate!!Total!!Female!!50 to 54 years
+            - B01001_041E    #Estimate!!Total!!Female!!55 to 59 years
+            - B01001_042E    #Estimate!!Total!!Female!!60 and 61 years
+            - B01001_043E    #Estimate!!Total!!Female!!62 to 64 years
+
+  pop_over_65_years:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P012020 #Total!!Male!!65 and 66 years
+            - P012021 #Total!!Male!!67 to 69 years
+            - P012022 #Total!!Male!!70 to 74 years
+            - P012023 #Total!!Male!!75 to 79 years
+            - P012024 #Total!!Male!!80 to 84 years
+            - P012025 #Total!!Male!!85 years and over
+            - P012044 #Total!!Female!!65 and 66 years
+            - P012045 #Total!!Female!!67 to 69 years
+            - P012046 #Total!!Female!!70 to 74 years
+            - P012047 #Total!!Female!!75 to 79 years
+            - P012048 #Total!!Female!!80 to 84 years
+            - P012049 #Total!!Female!!85 years and over
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P12_020N #Estimate!!Total!!Male!!65 and 66 years
+            - P12_021N #Estimate!!Total!!Male!!67 to 69 years
+            - P12_022N #Estimate!!Total!!Male!!70 to 74 years
+            - P12_023N #Estimate!!Total!!Male!!75 to 79 years
+            - P12_024N #Estimate!!Total!!Male!!80 to 84 years
+            - P12_025N #Estimate!!Total!!Male!!85 years and over
+            - P12_044N #Estimate!!Total!!Female!!65 and 66 years
+            - P12_045N #Estimate!!Total!!Female!!67 to 69 years
+            - P12_046N #Estimate!!Total!!Female!!70 to 74 years
+            - P12_047N #Estimate!!Total!!Female!!75 to 79 years
+            - P12_048N #Estimate!!Total!!Female!!80 to 84 years
+            - P12_049N #Estimate!!Total!!Female!!85 years and over
+
+    acs1: 
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B01001_020E    #Estimate!!Total!!Male!!65 and 66 years
+            - B01001_021E    #Estimate!!Total!!Male!!67 to 69 years
+            - B01001_022E    #Estimate!!Total!!Male!!70 to 74 years
+            - B01001_023E    #Estimate!!Total!!Male!!75 to 79 years
+            - B01001_024E    #Estimate!!Total!!Male!!80 to 84 years
+            - B01001_025E    #Estimate!!Total!!Male!!85 years and over
+            - B01001_044E    #Estimate!!Total!!Female!!65 and 66 years
+            - B01001_045E    #Estimate!!Total!!Female!!67 to 69 years
+            - B01001_046E    #Estimate!!Total!!Female!!70 to 74 years
+            - B01001_047E    #Estimate!!Total!!Female!!75 to 79 years
+            - B01001_048E    #Estimate!!Total!!Female!!80 to 84 years
+            - B01001_049E    #Estimate!!Total!!Female!!85 years and over
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01001_020E    #Estimate!!Total!!Male!!65 and 66 years
+            - B01001_021E    #Estimate!!Total!!Male!!67 to 69 years
+            - B01001_022E    #Estimate!!Total!!Male!!70 to 74 years
+            - B01001_023E    #Estimate!!Total!!Male!!75 to 79 years
+            - B01001_024E    #Estimate!!Total!!Male!!80 to 84 years
+            - B01001_025E    #Estimate!!Total!!Male!!85 years and over
+            - B01001_044E    #Estimate!!Total!!Female!!65 and 66 years
+            - B01001_045E    #Estimate!!Total!!Female!!67 to 69 years
+            - B01001_046E    #Estimate!!Total!!Female!!70 to 74 years
+            - B01001_047E    #Estimate!!Total!!Female!!75 to 79 years
+            - B01001_048E    #Estimate!!Total!!Female!!80 to 84 years
+            - B01001_049E    #Estimate!!Total!!Female!!85 years and over
+
+  pop_white:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P007002 #Total!!White alone
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - P008003 #Total!!Population of one race!!White alone
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P8_003N #!!Total:!!Population of one race:!!White alone
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B02001_002E    #Estimate!!Total!!White alone
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B02001_002E    #Estimate!!Total!!White alone
+
+  pop_black:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P007003 #Total!!Black or African American alone
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - P008004 #Total!!Population of one race!!Black or African American alone
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P8_004N #!!!!Total:!!Population of one race:!!Black or African American alone
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B02001_003E #Estimate!!Total!!Black or African American alone
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B02001_003E #Estimate!!Total!!Black or African American alone
+
+  pop_native:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P007004 #Total!!American Indian and Alaska Native alone alone
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - P008005 #Total!!Population of one race!!American Indian and Alaska Native alone
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P8_005N #!!Total:!!Population of one race:!!American Indian and Alaska Native alone
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B02001_004E #Estimate!!Total!!American Indian and Alaska Native alone
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B02001_004E #Estimate!!Total!!American Indian and Alaska Native alone
+
+  pop_asian:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P007005 #Total!!Asian alone
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - P008006 #Total!!Population of one race!!Asian alone
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P8_006N #!!Total:!!Population of one race:!!Asian alone
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B02001_005E #Estimate!!Total!!Asian alone
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B02001_005E #Estimate!!Total!!Asian alone
+
+  pop_hispanic:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P011001 #Total
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - P004003 #Total!!Hispanic or Latino
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P4_003N #!!Total:!!Hispanic or Latino
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B03001_003E #Estimate!!Total!!Hispanic or Latino
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B03001_003E #Estimate!!Total!!Hispanic or Latino
+
+  pop_non_us_citizen:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P021015 #Total!!Foreign born!!Not a citizen
+      - from_year: 2010
+        dataset: null
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B05001_006E #Estimate!!Total!!Not a U.S. citizen
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B05001_006E #Estimate!!Total!!Not a U.S. citizen
+
+  pop_higher_education_enrolled:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:  
+            - P036018 #Total!!Male!!Enrolled in college, undergraduate years
+            - P036021 #Total!!Male!!Enrolled in graduate or professional school
+            - P036041 #Total!!Female!!Enrolled in college, undergraduate years
+            - P036044 #Total!!Female!!Enrolled in graduate or professional school
+      - from_year: 2010
+        dataset: null
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B14001_008E #Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
+            - B14001_009E #Estimate!!Total!!Enrolled in school!!Graduate or professional school
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B14001_008E #Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
+            - B14001_009E #Estimate!!Total!!Enrolled in school!!Graduate or professional school
+
+  pop_higher_education_attained:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P037015 #Total!!Male!!Bachelor's degree
+            - P037016 #Total!!Male!!Master's degree
+            - P037017 #Total!!Male!!Professional school degree
+            - P037018 #Total!!Male!!Doctorate degree
+            - P037032 #Total!!Female!!Bachelor's degree
+            - P037033 #Total!!Female!!Master's degree
+            - P037034 #Total!!Female!!Professional school degree
+            - P037035 #Total!!Female!!Doctorate degree
+      - from_year: 2010
+        dataset: null
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B15001_010E #Estimate!!Total!!Male!!18 to 24 years!!Graduate or professional degree
+            - B15001_018E #Estimate!!Total!!Male!!25 to 34 years!!Graduate or professional degree
+            - B15001_026E #Estimate!!Total!!Male!!35 to 44 years!!Graduate or professional degree
+            - B15001_034E #Estimate!!Total!!Male!!45 to 64 years!!Graduate or professional degree
+            - B15001_042E #Estimate!!Total!!Male!!65 years and over!!Graduate or professional degree
+            - B15001_051E #Estimate!!Total!!Female!!18 to 24 years!!Graduate or professional degree
+            - B15001_059E #Estimate!!Total!!Female!!25 to 34 years!!Graduate or professional degree
+            - B15001_067E #Estimate!!Total!!Female!!35 to 44 years!!Graduate or professional degree
+            - B15001_075E #Estimate!!Total!!Female!!45 to 64 years!!Graduate or professional degree
+            - B15001_083E #Estimate!!Total!!Female!!65 years and over!!Graduate or professional degree
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B15001_010E #Estimate!!Total!!Male!!18 to 24 years!!Graduate or professional degree
+            - B15001_018E #Estimate!!Total!!Male!!25 to 34 years!!Graduate or professional degree
+            - B15001_026E #Estimate!!Total!!Male!!35 to 44 years!!Graduate or professional degree
+            - B15001_034E #Estimate!!Total!!Male!!45 to 64 years!!Graduate or professional degree
+            - B15001_042E #Estimate!!Total!!Male!!65 years and over!!Graduate or professional degree
+            - B15001_051E #Estimate!!Total!!Female!!18 to 24 years!!Graduate or professional degree
+            - B15001_059E #Estimate!!Total!!Female!!25 to 34 years!!Graduate or professional degree
+            - B15001_067E #Estimate!!Total!!Female!!35 to 44 years!!Graduate or professional degree
+            - B15001_075E #Estimate!!Total!!Female!!45 to 64 years!!Graduate or professional degree
+            - B15001_083E #Estimate!!Total!!Female!!65 years and over!!Graduate or professional degree
+
+  pop_poverty:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P087002 #Total!!Income in 1999 below poverty level
+      - from_year: 2010
+        dataset: null
+
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B17001_002E #Estimate!!Total!!Income in the past 12 months below poverty level
+
+  housing_units:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - H001001 #Total
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - H003001 #Total
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - H3_001N #!!Total
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B25001_001E #Estimate!!Total
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B25001_001E #Estimate!!Total
+
+  housing_occupied:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - H003002 #Total!!Occupied
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - H003002 #Total!!Occupied
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - H3_002N #!!Total:!!Occupied
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B25002_002E #Estimate!!Total!!Occupied
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B25002_002E #Estimate!!Total!!Occupied
+
+  housing_renter_occupied:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - H004003 #Total!!Renter occupied
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - H004004 #Total!!Renter occupied
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - H4_004N #!!Total:!!Renter occupied
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B25003_003E #Estimate!!Total!!Renter occupied
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B25003_003E #Estimate!!Total!!Renter occupied
