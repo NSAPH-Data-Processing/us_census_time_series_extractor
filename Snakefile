@@ -1,42 +1,55 @@
 import yaml
 
 conda: "requirements.yaml"
-configfile: "conf/config.yaml"
-envvars: # this indicates environment vars that must be set, always done in docker
-    "PYTHONPATH",  
-    "CENSUS_API_KEY"
 
-# == Load configuration ==
-# dynamic config files
-defaults_dict = {key: value for d in config['defaults'] if isinstance(d, dict) for key, value in d.items()}
-census_cfg = yaml.safe_load(open(f"conf/census/{defaults_dict['census']}.yaml", 'r'))
-# == Define variables ==
-variable_list = list(census_cfg['variables'].keys())
-print(f"variable_list: {variable_list}")
-dataset_name = census_cfg['dataset_name']
-print(f"dataset_name: {dataset_name}")
+
+configfile: "conf/config.yaml"
+
+
+envvars:  # this indicates environment vars that must be set, always done in docker
+    "PYTHONPATH",
+    "CENSUS_API_KEY",
+
+
+# == Obtain output files from valid combinations of geo_types and surveys ===
+output_files = []
+for geo_type in config["valid_years"].keys():
+    for survey in config["valid_years"][geo_type].keys():
+        output_files.append(f"data/output/census_series/{geo_type}__{survey}.parquet")
+
+# == Obtain list of all target census variables (concepts) ==
+variable_list = list(config["variable_codes"].keys())
+
 
 # == Define rules ==
 rule all:
     input:
-        f"data/output/census_series/{dataset_name}.parquet"
+        output_files,
+
 
 rule fetch_variables:
     output:
-        f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet"
+        "data/intermediate/census_variables/{geo_type}__{survey}__{variable}.parquet",
     shell:
-        f"""
-        PYTHONPATH=. python src/fetch_variables.py variable={{wildcards.variable}} 
         """
+        python src/fetch_variables.py \
+            geo_type={wildcards.geo_type} \
+            survey={wildcards.survey} \
+            variable={wildcards.variable}
+        """
+
 
 rule merge_variables:
     input:
-        expand(f"data/intermediate/census_variables/{dataset_name}__{{variable}}.parquet", 
-            variable=variable_list
-        )
+        expand(
+            "data/intermediate/census_variables/{{geo_type}}__{{survey}}__{var}.parquet",
+            var=variable_list,
+        ),
     output:
-        f"data/output/census_series/{dataset_name}.parquet"
+        "data/output/census_series/{geo_type}__{survey}.parquet",
     shell:
-        f"""
-        PYTHONPATH=. python src/merge_variables.py 
+        """
+        python src/merge_variables.py \
+            geo_type={wildcards.geo_type} \
+            survey={wildcards.survey}
         """
