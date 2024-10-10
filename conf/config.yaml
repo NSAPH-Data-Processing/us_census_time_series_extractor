@@ -27,7 +27,7 @@ valid_years:
 
 
 # codes in the different census surveys for each concept
-variable_codes:
+variable_codes:  
   population:
     dec:
       - from_year: 2000
@@ -679,3 +679,47 @@ variable_codes:
         codes:
           num:
             - B25003_003E #Estimate!!Total!!Renter occupied
+
+  median_home_value:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - H085001 #Median value (dollars)
+      - from_year: 2010
+        dataset: null
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B25077_001E #Estimate!!Median value (dollars)
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B25077_001E #Estimate!!Median value (dollars)
+
+  median_household_income:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P053001 #Median income (dollars)
+      - from_year: 2010
+        dataset: null
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B19013_001E #Estimate!!Median household income in the past 12 months (in 2005 inflation-adjusted dollars)
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B19013_001E #Estimate!!Median household income in the past 12 months (in 2009 inflation-adjusted dollars)
