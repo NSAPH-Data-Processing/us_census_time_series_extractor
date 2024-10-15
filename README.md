@@ -82,7 +82,7 @@ You can run the pipeline steps manually or run the snakemake pipeline described 
 
 **Run the pipeline steps manually to fetch a single variable**
 
-For a variable listed in a `conf/census/<census_yaml>` select a variable, for example `pop_native` listed in `conf/census/zcta_totals.yaml`.
+For a variable listed in a `conf/<config_yaml>` select a variable, for example `pop_native` listed in `conf/config.yaml`.
 
 ```bash
 # Create and activate the conda environment
@@ -96,14 +96,14 @@ export CENSUS_API_KEY='your_api_key_here'
 python utils/create_datapaths.py
 
 # Execute the main script
-PYTHONPATH=. python src/fetch_variables.py variable=pop_native
+PYTHONPATH=. python src/fetch_variables.py variable=pop_native geo_type=county survey=acs1
 ```
 
 **Run snakemake pipeline**
 
 To extract all variables and merge them use the snakemake workflow.
 
-The census variable codes that are used to created the time series are defined in the `yaml` files stored in `conf/census/<yaml_file>`. For example, the pipeline below uses the `zcta_totals.yaml` file. 
+The census variable codes that are used to create the time series are defined in the `yaml` file stored in `conf/<config_yaml>`. For example, the pipeline below uses the `conf/config.yaml` file. 
 
 ```bash
 # Create and activate the conda environment
@@ -118,7 +118,7 @@ export PYTHONPATH='.'
 python utils/create_datapaths.py
 
 # Execute the Snakemake pipeline
-snakemake --cores 1 census=zcta_totals
+snakemake --cores 1 #select number of cores
 ```
 
 ### Dockerized Pipeline

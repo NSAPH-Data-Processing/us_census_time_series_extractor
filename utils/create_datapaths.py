@@ -5,38 +5,52 @@ from omegaconf import DictConfig
 
 LOGGER = logging.getLogger(__name__)
 
-def create_subfolders_and_links(datapath, subfolder_dict, base_path="data"):
+
+def create_subfolders_and_links(datapath="data", folder_dict=None):
     """
     Recursively create subfolders and symbolic links.
     """
-    for subfolder_name, subfolder_link in subfolder_dict.items():
-        subfolder_path = os.path.join(base_path, datapath, subfolder_name)
-
-        if isinstance(subfolder_link, DictConfig):
-            # Recursive call for nested subfolders
-            create_subfolders_and_links(subfolder_name, subfolder_link, os.path.join(base_path, datapath))
-        else:
-            if os.path.exists(subfolder_path):
-                LOGGER.info(f"Subfolder {subfolder_path} already exists.")
-                continue
-            if subfolder_link is not None:
-                # Expand the tilde to the user's home directory
-                expanded_path = os.path.expanduser(subfolder_link)
+    if not os.path.exists(datapath):
+        LOGGER.info(f"Error: {datapath} does not exists.")
+        return
+    if isinstance(folder_dict, DictConfig):
+        for path, subfolder_dict in folder_dict.items():
+            sub_datapath = os.path.join(datapath, path)
+            if isinstance(subfolder_dict, str):
+                # Check if the folder is a symbolic link
+                if os.path.islink(sub_datapath):
+                    # Get the target of the symlink
+                    link_target = os.readlink(sub_datapath)
+                    # Check if the link points to the specified target path
+                    if os.path.abspath(link_target) == os.path.abspath(subfolder_dict):
+                        LOGGER.info(f"There is a symbolic link to {subfolder_dict} at {sub_datapath} already")
+                    else:
+                        LOGGER.info(f"Error: {sub_datapath} is a symbolic link to {link_target}, not {subfolder_dict}")
+                        return 
                 # Create symbolic link
-                basedir = os.path.dirname(subfolder_path)
-                os.makedirs(basedir, exist_ok=True)
-                os.symlink(expanded_path, subfolder_path)
-                LOGGER.info(f"Created symlink {subfolder_path} -> {subfolder_link}")
+                else:
+                    if os.path.exists(sub_datapath):
+                        LOGGER.info(f"Error: Path {sub_datapath} already exists, cannot create symlink")
+                        return
+                    else:
+                        os.makedirs(os.path.abspath(subfolder_dict), exist_ok=True)
+                        os.symlink(os.path.abspath(subfolder_dict), sub_datapath)
+                        LOGGER.info(f"Created symlink {sub_datapath} -> {subfolder_dict}")
             else:
-                os.makedirs(subfolder_path, exist_ok=True)
-                LOGGER.info(f"Created subfolder {subfolder_path}")
-            
+                # Create subfolder
+                if os.path.exists(sub_datapath):
+                    LOGGER.info(f"Path {sub_datapath} already exists")
+                else:
+                    os.mkdir(sub_datapath)
+                    LOGGER.info(f"Created data path {sub_datapath}")
+                if subfolder_dict is not None:
+                    # Recursive call for nested subfolders
+                    create_subfolders_and_links(sub_datapath, subfolder_dict)
 
 @hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     """Create data subfolders and symbolic links as indicated in config file."""
-    for datapath, subfolder_dict in cfg.datapaths.items():
-        create_subfolders_and_links(datapath, subfolder_dict)
+    create_subfolders_and_links(folder_dict=cfg.datapaths)
 
 if __name__ == "__main__":
     main()
