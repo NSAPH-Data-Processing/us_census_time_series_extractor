@@ -153,7 +153,7 @@ def main(cfg):
 
     var_df = pd.concat(var_df_list)
     filename = f"{cfg.geo_type}__{cfg.survey}__{cfg.variable}.parquet"
-    var_df.to_parquet(f"data/intermediate/census_variables/{filename}")
+    var_df.to_parquet(f"data/intermediate/{filename}")
     logger.info(f"GENERATED file {filename}")
 
 
