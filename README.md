@@ -115,7 +115,7 @@ export CENSUS_API_KEY='your_api_key_here'
 export PYTHONPATH='.'
 
 # Create the data directory paths
-python utils/create_datapaths.py
+python src/create_datapaths.py
 
 # Execute the Snakemake pipeline
 snakemake --cores 1 #select number of cores
@@ -128,7 +128,7 @@ For an isolated and reproducible environment, the pipeline is also dockerized. T
 ```bash
 # Run the Dockerized pipeline 
 docker pull nsaph/census_series:latest
-docker run -v <output_path>:/app/data/output/census_series --env CENSUS_API_KEY=<your_api_key_here> nsaph/census_series:latest
+docker run -v <output_path>:/app/data/output/ --env CENSUS_API_KEY=<your_api_key_here> nsaph/census_series:latest
 ```
 
 Note: Remember to replace your_api_key_here with your actual Census API key.

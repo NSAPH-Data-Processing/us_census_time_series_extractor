@@ -1,0 +1,15 @@
+name: census_series
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - census
+  - pyarrow
+  - duckdb
+  - pip
+  - pip:
+    - censusdis
+    - ipykernel
+    - hydra-core
+    - snakemake

@@ -90,7 +90,7 @@ def process_variable_dict(
         # == transform to ratio ==
         df = df.apply(pd.to_numeric, errors="coerce")
         if "den" in variable_codes:
-            df[variable_label] = df[num_list].sum(axis=1) / df[den_list].sum(axis=1)
+            df[variable_label] = df[num_list].sum(axis=1) / df[den_list].sum(axis=1) * 100
         else:
             df[variable_label] = df[num_list].sum(axis=1)
 
@@ -153,7 +153,7 @@ def main(cfg):
 
     var_df = pd.concat(var_df_list)
     filename = f"{cfg.geo_type}__{cfg.survey}__{cfg.variable}.parquet"
-    var_df.to_parquet(f"data/intermediate/census_variables/{filename}")
+    var_df.to_parquet(f"data/intermediate/{filename}")
     logger.info(f"GENERATED file {filename}")
 
 
