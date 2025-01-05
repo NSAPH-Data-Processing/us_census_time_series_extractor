@@ -115,7 +115,7 @@ export CENSUS_API_KEY='your_api_key_here'
 export PYTHONPATH='.'
 
 # Create the data directory paths
-python utils/create_datapaths.py
+python src/create_datapaths.py
 
 # Execute the Snakemake pipeline
 snakemake --cores 1 #select number of cores
