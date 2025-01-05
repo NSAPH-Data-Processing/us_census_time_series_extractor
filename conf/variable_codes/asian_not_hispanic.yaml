@@ -4,7 +4,17 @@ pct_foreign_born:
       dataset: acs/acs5/profile
       codes:
         num:
-          - DP02_0092PE #Percent!!Estimate!!PLACE OF BIRTH!!Total population!!Foreign born #Estimate!!Total
+          - DP02_0092PE #Percent!!Estimate!!PLACE OF BIRTH!!Total population!!Foreign born
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0093PE #Percent!!PLACE OF BIRTH!!Total population!!Foreign born
+    - from_year: 2020
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0094PE #Percent!!PLACE OF BIRTH!!Total population!!Foreign born
 
 pct_speak_english_less_than_very_well:
   acs5:
@@ -12,7 +22,17 @@ pct_speak_english_less_than_very_well:
       dataset: acs/acs5/profile
       codes:
         num:
-          - DP02_0113PE #"Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Language other than English!!Speak English less than ""very well"""
+          - DP02_0113PE #Percent!!Estimate!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Language other than English!!Speak English less than "very well"
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0114PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Language other than English!!Speak English less than "very well"
+    - from_year: 2020
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0115PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Language other than English!!Speak English less than "very well"
 
 pct_speak_spanish_at_home:
   acs5:
@@ -21,6 +41,16 @@ pct_speak_spanish_at_home:
       codes:
         num:
           - DP02_0114PE #Percent!!Estimate!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0115PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish
+    - from_year: 2020
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0116PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish
 
 pct_speak_spanish_at_home_english_less_than_very_well:
   acs5:
@@ -28,7 +58,17 @@ pct_speak_spanish_at_home_english_less_than_very_well:
       dataset: acs/acs5/profile
       codes:
         num:
-          - DP02_0115PM #"Percent!!Margin of Error!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish!!Speak English less than ""very well""
+          - DP02_0115PE #"Percent!!Estimate!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish!!Speak English less than ""very well"""
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0116PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish!!Speak English less than "very well"
+    - from_year: 2020 
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0117PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish!!Speak English less than "very well"
 
 pct_speak_asian_pacific_at_home:
   acs5:
@@ -37,6 +77,16 @@ pct_speak_asian_pacific_at_home:
       codes:
         num:
           - DP02_0118PE #Percent!!Estimate!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0119PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages
+    - from_year: 2020
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0120PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages
 
 pct_speak_asian_pacific_at_home_english_less_than_very_well:
   acs5:
@@ -45,6 +95,16 @@ pct_speak_asian_pacific_at_home_english_less_than_very_well:
       codes:
         num:
           - DP02_0119PE #"Percent!!Estimate!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages!!Speak English less than ""very well"""
+    - from_year: 2019
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0120PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages!!Speak English less than "very well"
+    - from_year: 2020
+      dataset: acs/acs5/profile
+      codes:
+        num:
+          - DP02_0121PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages!!Speak English less than "very well"
 
 pct_hispanic:
   acs5:
@@ -53,7 +113,7 @@ pct_hispanic:
       codes:
         num:
           - B03002_012E # Estimate!!Total!!Hispanic or Latino
-        denom: 
+        den: 
           - B03002_001E # Estimate!!Total
 
 pct_asian_not_hispanic:
@@ -63,5 +123,5 @@ pct_asian_not_hispanic:
       codes:
         num:
           - B03002_006E # Estimate!!Total!!Not Hispanic or Latino!!Asian alone
-        denom: 
+        den: 
           - B03002_001E # Estimate!!Total
