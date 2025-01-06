@@ -128,10 +128,10 @@ def main(cfg):
     var_df_list = []
 
     # get the codes for the geo_type/survey/variable
-    codes_segments = cfg.variable_codes[cfg.variable][cfg.survey]
+    codes_segments = cfg.variables.names[cfg.variable][cfg.survey]
     year_cuts = [x.from_year for x in codes_segments]
 
-    for year in cfg.valid_years[cfg.geo_type][cfg.survey]:
+    for year in cfg.variables.valid_years[cfg.geo_type][cfg.survey]:
         # find first year such that year <= year_cut | cast np.int64 to int
         index = int(np.searchsorted(year_cuts, year, side="right")) - 1
         dataset = codes_segments[index].dataset
