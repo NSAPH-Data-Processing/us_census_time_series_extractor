@@ -1,25 +1,27 @@
-import yaml
+import hydra
 
 conda: "requirements.yaml"
-
-
 configfile: "conf/config.yaml"
-
 
 envvars:  # this indicates environment vars that must be set, always done in docker
     "PYTHONPATH",
     "CENSUS_API_KEY",
 
+with hydra.initialize(version_base=None, config_path="conf"):
+    hydra_cfg = hydra.compose(config_name="config")
+
 
 # == Obtain output files from valid combinations of geo_types and surveys ===
 output_files = []
-for geo_type in config["valid_years"].keys():
-    for survey in config["valid_years"][geo_type].keys():
-        output_files.append(f"data/output/{geo_type}__{survey}.parquet")
+for geo_type in hydra_cfg.variables.valid_years.keys():
+    for survey in hydra_cfg.variables.valid_years[geo_type].keys():
+        for year in hydra_cfg.variables.valid_years[geo_type][survey]:
+            output_files.append(f"data/output/{geo_type}_yearly/{survey}_{year}.parquet")
+print(output_files)
 
 # == Obtain list of all target census variables (concepts) ==
-variable_list = list(config["variable_codes"].keys())
-
+variable_list = list(hydra_cfg.variables.names.keys())
+print(variable_list)
 
 # == Define rules ==
 rule all:
@@ -29,7 +31,7 @@ rule all:
 
 rule fetch_variables:
     output:
-        "data/intermediate/{geo_type}__{survey}__{variable}.parquet",
+        "data/input/{geo_type}__{survey}__{variable}.parquet",
     shell:
         """
         python src/fetch_variables.py \
@@ -42,14 +44,15 @@ rule fetch_variables:
 rule merge_variables:
     input:
         expand(
-            "data/intermediate/{{geo_type}}__{{survey}}__{var}.parquet",
+            "data/input/{{geo_type}}__{{survey}}__{var}.parquet",
             var=variable_list,
         ),
     output:
-        "data/output/{geo_type}__{survey}.parquet",
+        "data/output/{geo_type}_yearly/{survey}_{year}.parquet",
     shell:
         """
         python src/merge_variables.py \
             geo_type={wildcards.geo_type} \
-            survey={wildcards.survey}
+            survey={wildcards.survey} \
+            year={wildcards.year}
         """
