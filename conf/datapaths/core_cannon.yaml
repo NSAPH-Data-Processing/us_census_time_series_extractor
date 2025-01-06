@@ -1,3 +1,2 @@
-# if the files are stored in cannon, then the paths are: 
-intermediate: /n/dominici_lab/lab/lego/social/demographics__census/.intermediate/core
+input: /n/dominici_lab/lab/lego/social/demographics__census/raw/core
 output: /n/dominici_lab/lab/lego/social/demographics__census/core
