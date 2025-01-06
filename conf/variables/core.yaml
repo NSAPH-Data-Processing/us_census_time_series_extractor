@@ -10,7 +10,7 @@ valid_years:
     acs5: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
 
 # dataset:null means that a variable is not available for that year and survey
-codes:
+names:
   population:
     dec:
       - from_year: 2000
