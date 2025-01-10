@@ -93,7 +93,7 @@ conda activate census_series
 export CENSUS_API_KEY='your_api_key_here'
 
 # Create the data directory paths
-python utils/create_datapaths.py
+python src/create_datapaths.py
 
 # Execute the main script
 PYTHONPATH=. python src/fetch_variables.py variable=pop_native geo_type=county survey=acs1

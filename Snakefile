@@ -1,35 +1,44 @@
-import yaml
+import hydra
 
 conda: "requirements.yaml"
-
-
 configfile: "conf/config.yaml"
-
 
 envvars:  # this indicates environment vars that must be set, always done in docker
     "PYTHONPATH",
     "CENSUS_API_KEY",
 
-
-# == Obtain output files from valid combinations of geo_types and surveys ===
-output_files = []
-for geo_type in config["valid_years"].keys():
-    for survey in config["valid_years"][geo_type].keys():
-        output_files.append(f"data/output/{geo_type}__{survey}.parquet")
+with hydra.initialize(version_base=None, config_path="conf"):
+    hydra_cfg = hydra.compose(config_name="config")
 
 # == Obtain list of all target census variables (concepts) ==
-variable_list = list(config["variable_codes"].keys())
+variable_list = list(hydra_cfg.variables.names.keys())
+print(variable_list)
 
+# == Obtain output files from valid combinations of geo_types and surveys ===
+merged_output_files = []
+for geo_type in hydra_cfg.variables.valid_years.keys():
+    for survey in hydra_cfg.variables.valid_years[geo_type].keys():
+        for year in hydra_cfg.variables.valid_years[geo_type][survey]:
+            if survey == "acs5":
+                year = year - 2
+            merged_output_files.append(f"data/output/{geo_type}_yearly/{survey}_{year}.parquet")
+print(merged_output_files)
+
+fetched_output_files = []
+for geo_type in hydra_cfg.variables.valid_years.keys():
+    for survey in hydra_cfg.variables.valid_years[geo_type].keys():
+        for variable in variable_list:
+            fetched_output_files.append(f"data/input/{geo_type}__{survey}__{variable}.parquet")
+print(fetched_output_files)
 
 # == Define rules ==
 rule all:
     input:
-        output_files,
-
+        merged_output_files,
 
 rule fetch_variables:
     output:
-        "data/intermediate/{geo_type}__{survey}__{variable}.parquet",
+        "data/input/{geo_type}__{survey}__{variable}.parquet",
     shell:
         """
         python src/fetch_variables.py \
@@ -38,18 +47,28 @@ rule fetch_variables:
             variable={wildcards.variable}
         """
 
-
 rule merge_variables:
     input:
-        expand(
-            "data/intermediate/{{geo_type}}__{{survey}}__{var}.parquet",
-            var=variable_list,
-        ),
+        fetched_output_files,
     output:
-        "data/output/{geo_type}__{survey}.parquet",
+        merged_output_files,
     shell:
         """
-        python src/merge_variables.py \
-            geo_type={wildcards.geo_type} \
-            survey={wildcards.survey}
+        python src/merge_variables.py
         """
+
+# TODO: investigate how to make a dynamic rule for the output as year depends on geo_type and survey
+# rule merge_variables:
+#     input:
+#         expand(
+#             "data/input/{{geo_type}}__{{survey}}__{var}.parquet",
+#             var=variable_list,
+#         ),
+#     output:
+#         "data/output/{geo_type}_yearly/{survey}_{year}.parquet"
+#     shell:
+#         """
+#         python src/merge_variables.py
+#         geo_type={wildcards.geo_type}
+#         survey={wildcards.survey}
+#         """
