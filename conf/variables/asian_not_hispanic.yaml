@@ -2,12 +2,22 @@
 # acs5 represent 5-year estimates, acs5 2009 represents the 2005-2009 5-year estimates
 valid_years:
   county:
+    dec: [2000]
     acs5: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
   zcta:
+    dec: [2000]
     acs5: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
 
 names:
   pct_foreign_born:
+    dec: 
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P021013 #Total!!Foreign born
+          den:
+            - P021001 #Total
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -26,6 +36,52 @@ names:
             - DP02_0094PE #Percent!!PLACE OF BIRTH!!Total population!!Foreign born
 
   pct_speak_english_less_than_very_well:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P019006 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""well"""
+            - P019007 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""not well"""
+            - P019008 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""not at all"""
+            - P019011 #"Total!!5 to 17 years!!Speak other Indo-European languages!!Speak English ""well"""
+            - P019012 #"Total!!5 to 17 years!!Speak other Indo-European languages!!Speak English ""not well"""
+            - P019013 #"Total!!5 to 17 years!!Speak other Indo-European languages!!Speak English ""not at all"""
+            - P019016 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019017 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019018 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+            - P019021 #"Total!!5 to 17 years!!Speak other languages!!Speak English ""well"""
+            - P019022 #"Total!!5 to 17 years!!Speak other languages!!Speak English ""not well"""
+            - P019023 #"Total!!5 to 17 years!!Speak other languages!!Speak English ""not at all"""
+            - P019028 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""well"""
+            - P019029 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""not well"""
+            - P019030 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""not at all"""
+            - P019033 #"Total!!18 to 64 years!!Speak other Indo-European languages!!Speak English ""well"""
+            - P019034 #"Total!!18 to 64 years!!Speak other Indo-European languages!!Speak English ""not well"""
+            - P019035 #"Total!!18 to 64 years!!Speak other Indo-European languages!!Speak English ""not at all"""
+            - P019038 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019039 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019040 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+            - P019043 #"Total!!18 to 64 years!!Speak other languages!!Speak English ""well"""
+            - P019044 #"Total!!18 to 64 years!!Speak other languages!!Speak English ""not well"""
+            - P019045 #"Total!!18 to 64 years!!Speak other languages!!Speak English ""not at all"""
+            - P019050 #"Total!!65 years and over!!Speak Spanish!!Speak English ""well"""
+            - P019051 #"Total!!65 years and over!!Speak Spanish!!Speak English ""not well"""
+            - P019052 #"Total!!65 years and over!!Speak Spanish!!Speak English ""not at all"""
+            - P019055 #"Total!!65 years and over!!Speak other Indo-European languages!!Speak English ""well"""
+            - P019056 #"Total!!65 years and over!!Speak other Indo-European languages!!Speak English ""not well"""
+            - P019057 #"Total!!65 years and over!!Speak other Indo-European languages!!Speak English ""not at all"""
+            - P019060 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019061 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019062 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+            - P019065 #"Total!!65 years and over!!Speak other languages!!Speak English ""well"""
+            - P019066 #"Total!!65 years and over!!Speak other languages!!Speak English ""not well"""
+            - P019067 #"Total!!65 years and over!!Speak other languages!!Speak English ""not at all"""
+          den:
+            - P019002 #Total!!5 to 17 years
+            - P019024 #Total!!18 to 64 years
+            - P019046 #Total!!65 years and over
+
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -44,6 +100,18 @@ names:
             - DP02_0115PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Language other than English!!Speak English less than "very well"
 
   pct_speak_spanish_at_home:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P019004 #Total!!5 to 17 years!!Speak Spanish 
+            - P019026 #Total!!18 to 64 years!!Speak Spanish
+            - P019048 #Total!!65 years and over!!Speak Spanish
+          den:
+            - P019002 #Total!!5 to 17 years
+            - P019024 #Total!!18 to 64 years
+            - P019046 #Total!!65 years and over
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -62,6 +130,24 @@ names:
             - DP02_0116PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish
 
   pct_speak_spanish_at_home_english_less_than_very_well:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P019006 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""well"""
+            - P019007 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""not well"""
+            - P019008 #"Total!!5 to 17 years!!Speak Spanish!!Speak English ""not at all"""
+            - P019028 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""well"""
+            - P019029 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""not well"""
+            - P019030 #"Total!!18 to 64 years!!Speak Spanish!!Speak English ""not at all"""
+            - P019050 #"Total!!65 years and over!!Speak Spanish!!Speak English ""well"""
+            - P019051 #"Total!!65 years and over!!Speak Spanish!!Speak English ""not well"""
+            - P019052 #"Total!!65 years and over!!Speak Spanish!!Speak English ""not at all"""
+          den:
+            - P019002 #Total!!5 to 17 years
+            - P019024 #Total!!18 to 64 years
+            - P019046 #Total!!65 years and over
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -80,6 +166,18 @@ names:
             - DP02_0117PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Spanish!!Speak English less than "very well"
 
   pct_speak_asian_pacific_at_home:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P019014 #Total!!5 to 17 years!!Speak Asian and Pacific Island languages
+            - P019036 #Total!!18 to 64 years!!Speak Asian and Pacific Island languages
+            - P019058 #Total!!65 years and over!!Speak Asian and Pacific Island languages
+          den:
+            - P019002 #Total!!5 to 17 years
+            - P019024 #Total!!18 to 64 years
+            - P019046 #Total!!65 years and over
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -98,6 +196,24 @@ names:
             - DP02_0120PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages
 
   pct_speak_asian_pacific_at_home_english_less_than_very_well:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P019016 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019017 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019018 #"Total!!5 to 17 years!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+            - P019038 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019039 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019040 #"Total!!18 to 64 years!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+            - P019060 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""well"""
+            - P019061 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""not well"""
+            - P019062 #"Total!!65 years and over!!Speak Asian and Pacific Island languages!!Speak English ""not at all"""
+          den:
+            - P019002 #Total!!5 to 17 years
+            - P019024 #Total!!18 to 64 years
+            - P019046 #Total!!65 years and over
     acs5:
       - from_year: 2009
         dataset: acs/acs5/profile
@@ -116,6 +232,14 @@ names:
             - DP02_0121PE #Percent!!LANGUAGE SPOKEN AT HOME!!Population 5 years and over!!Asian and Pacific Islander languages!!Speak English less than "very well"
 
   pct_hispanic:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P004002 #Total!!Hispanic or Latino
+          den:
+            - P004001 #Total
     acs5:
       - from_year: 2009
         dataset: acs/acs5
@@ -126,6 +250,14 @@ names:
             - B03002_001E # Estimate!!Total
 
   pct_asian_not_hispanic:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - P004003 #Total!!Not Hispanic or Latino!!Asian alone
+          den:
+            - P004001 #Total
     acs5:
       - from_year: 2009
         dataset: acs/acs5
