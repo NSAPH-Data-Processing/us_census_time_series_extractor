@@ -1,0 +1,58 @@
+# valid years to include for each geography type and survey across all variables
+# acs5 represent 5-year estimates, acs5 2009 represents the 2005-2009 5-year estimates in the input
+# in the output the 5-year estimates are assigned to the middle year, so acs5 2009 is assigned to 2007
+valid_years:
+  county:
+    acs5: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  zcta:
+    acs5: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+
+# dataset:null means that a variable is not available for that year and survey
+names:  
+  population:
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B01003_001E #Estimate!!Total
+
+  pop_over_65_years:
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - P12_020N #Estimate!!Total!!Male!!65 and 66 years
+            - P12_021N #Estimate!!Total!!Male!!67 to 69 years
+            - P12_022N #Estimate!!Total!!Male!!70 to 74 years
+            - P12_023N #Estimate!!Total!!Male!!75 to 79 years
+            - P12_024N #Estimate!!Total!!Male!!80 to 84 years
+            - P12_025N #Estimate!!Total!!Male!!85 years and over
+            - P12_044N #Estimate!!Total!!Female!!65 and 66 years
+            - P12_045N #Estimate!!Total!!Female!!67 to 69 years
+            - P12_046N #Estimate!!Total!!Female!!70 to 74 years
+            - P12_047N #Estimate!!Total!!Female!!75 to 79 years
+            - P12_048N #Estimate!!Total!!Female!!80 to 84 years
+            - P12_049N #Estimate!!Total!!Female!!85 years and over
+
+  pop_65_plus_high_school_not_attained:
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+          - B15001_036E #Estimate!!Total!!Male!!65 years and over!!Less than 9th grade
+          - B15001_037E #Estimate!!Total!!Male!!65 years and over!!9th to 12th grade, no diploma
+          - B15001_077E #Estimate!!Total!!Female!!65 years and over!!Less than 9th grade
+          - B15001_078E #Estimate!!Total!!Female!!65 years and over!!9th to 12th grade, no diploma
+
+  pop_65_plus_below_poverty_level:
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+          - B17001_015E #Estimate!!Total!!Income in the past 12 months below poverty level!!Male!!65 to 74 years
+          - B17001_016E #Estimate!!Total!!Income in the past 12 months below poverty level!!Male!!75 years and over
+          - B17001_029E #Estimate!!Total!!Income in the past 12 months below poverty level!!Female!!65 to 74 years
+          - B17001_030E #Estimate!!Total!!Income in the past 12 months below poverty level!!Female!!75 years and over
