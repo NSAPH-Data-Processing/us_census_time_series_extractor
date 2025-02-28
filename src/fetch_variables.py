@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 def get_data(year, geo_type, dataset, variable_list, api_key):
+    logger.info(
+        f"get data: {year}, geo_type: {geo_type}, dataset: {dataset}, variable_list: {variable_list}"
+    )
 
     # helper dictionary for URL creation
     geography_dict = {
