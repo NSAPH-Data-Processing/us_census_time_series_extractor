@@ -82,7 +82,14 @@ You can run the pipeline steps manually or run the snakemake pipeline described 
 
 **Run the pipeline steps manually to fetch a single variable**
 
-For a variable listed in a `conf/<config_yaml>` select a variable, for example `pop_native` listed in `conf/config.yaml`.
+The census variable codes that are used to create the time series are defined in the `yaml` file stored in `conf/variables/<config_yaml>`. The data paths attached to the pipeline are defined in `conf/datapaths/<config_yaml>`.
+
+# Fix the key params in config
+For example:
+```
+  - datapaths: datapaths
+  - variables: core
+```
 
 ```bash
 # Create and activate the conda environment
@@ -101,9 +108,16 @@ PYTHONPATH=. python src/fetch_variables.py variable=pop_native geo_type=county s
 
 **Run snakemake pipeline**
 
-To extract all variables and merge them use the snakemake workflow.
+The census variable codes that are used to create the time series are defined in the `yaml` file stored in `conf/variables/<config_yaml>`. The data paths attached to the pipeline are defined in `conf/datapaths/<config_yaml>`.
 
-The census variable codes that are used to create the time series are defined in the `yaml` file stored in `conf/<config_yaml>`. For example, the pipeline below uses the `conf/config.yaml` file. 
+# Fix the key params in config
+For example:
+```
+  - datapaths: core_cannon
+  - variables: core
+```
+
+To extract all variables and merge them use the snakemake workflow.
 
 ```bash
 # Create and activate the conda environment
@@ -113,6 +127,7 @@ conda activate census_series
 # Set your Census API key
 export CENSUS_API_KEY='your_api_key_here'
 export PYTHONPATH='.'
+```
 
 # Create the data directory paths
 python src/create_datapaths.py
