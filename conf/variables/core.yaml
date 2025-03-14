@@ -663,6 +663,38 @@ names:
           num:
             - B25003_003E #Estimate!!Total!!Renter occupied
 
+  housing_owner_occupied:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf1
+        codes:
+          num:
+            - H004002 #Total!!Owner occupied H004003
+      - from_year: 2010
+        dataset: dec/sf1
+        codes:
+          num:
+            - H004002 #Total!!Owned with a mortgage or a loan
+            - H004003 #Total!!Owned free and clear
+      - from_year: 2020
+        dataset: dec/dhc
+        codes:
+          num:
+            - H4_002N #!!Total:!!Owned with a mortgage or a loan
+            - H4_003N #!!Total:!!Owned free and clear
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B25003_002E #Estimate!!Total!!Owner occupied
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B25003_002E #Estimate!!Total!!Owner occupied
+
   median_home_value:
     dec:
       - from_year: 2000
