@@ -1,0 +1,28 @@
+shp_year: 2010
+min_interp_year: 2000
+max_interp_year: 2009
+max_census_year: 2020
+
+input_dir: data/output/zcta_yearly/
+out_dir: data/output/zcta_yearly/
+
+base_name: demographics__census__core__zcta_yearly__
+export_diff: data/raw/difference_original.parquet
+
+trim_2010_yrs: false
+intersect_files: null
+
+survey_dict:
+  2000: dec
+  2009: acs5
+  2010: dec
+  2011: acs5
+  2012: acs5
+  2013: acs5
+  2014: acs5
+  2015: acs5
+  2016: acs5
+  2017: acs5
+  2018: acs5
+  2019: acs5
+  2020: dec

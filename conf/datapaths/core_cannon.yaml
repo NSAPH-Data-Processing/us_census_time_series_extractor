@@ -1,2 +1,3 @@
 input: /n/dominici_lab/lab/lego/social/demographics__census/raw/core
 output: /n/dominici_lab/lab/lego/social/demographics__census/core
+input_geo: /n/dominici_lab/lab/lego/geoboundaries/us_geoboundaries__census/

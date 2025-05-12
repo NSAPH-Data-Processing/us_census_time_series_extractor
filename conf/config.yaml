@@ -1,13 +1,13 @@
 defaults:
   - _self_
-  - datapaths: datapaths
+  - datapaths: core_cannon
   - variables: core
+  - interp: zcta_identity
 
 # logging config
 hydra:
   run:
     dir: logs/${now:%Y-%m-%d}/${now:%H-%M-%S}
-
 
 # minimal arguments
 geo_type:  # 'zcta'  # type=Literal['zcta', 'county', 'state'], help='Geography type to fetch data for'
