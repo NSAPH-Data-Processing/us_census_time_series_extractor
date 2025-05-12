@@ -1,8 +1,15 @@
-#census_years: [2000, 2010, 2020]
 shp_year: 2010
-min_year: 2000
-max_year: 2009
-intersect_files: data/zcta_xwalk/zcta00_2_zcta10__ipums_mcdc.parquet
+min_interp_year: 2000
+max_interp_year: 2009
+max_census_year: 2020
+
+sp_res: zcta
+
+input_dir: data/output/zcta_yearly/
 out_dir: data/output/zcta_yearly/
+
 base_name: demographics__census__core__zcta_yearly__
+export_diff: data/raw/difference_original.parquet
+
+intersect_files: data/zcta_xwalk/zcta00_2_zcta10__ipums_mcdc.parquet
 export_diff: null
