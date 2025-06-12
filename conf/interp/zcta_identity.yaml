@@ -5,11 +5,13 @@ max_census_year: 2020
 
 sp_res: zcta
 
+count_vars: none
+  
 input_dir: data/output/zcta_yearly/
 out_dir: data/output/zcta_yearly/
 
-base_name: demographics__census__core__zcta_yearly__
+base_name: demographics__census__core__zcta_yearly
 export_diff: data/raw/difference_original.parquet
 
 trim_zctas: false
-intersect_files: null
+xwalk: null

@@ -1,11 +1,15 @@
 import logging
 import hydra
 import pandas as pd
+import numpy as np
 
 logger = logging.getLogger(__name__)
 
-def weighted_mean(x, wt):
-    return (x * wt).sum() / wt.sum()
+def weighted_mean(values, weights):
+    return np.average(values, weights=weights)
+
+def weighted_sum(values, weights):
+    return np.sum(values * weights)
 
 @hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
@@ -32,23 +36,26 @@ def main(cfg):
     var_lst = list(cfg.variables.names.keys())
 
     # read in crosswalk file
-    if cfg.interp.intersect_files is not None:
-        zcta_xwalk = pd.read_parquet(cfg.interp.intersect_files)
+    if cfg.interp.xwalk is not None:
+        zcta_xwalk = pd.read_parquet(cfg.interp.xwalk.xwalk_fname)
         # merge with df_start
         df_start = df_start.merge(zcta_xwalk, left_on="zcta", right_on="zcta_00", how="inner")
         
         # Keep only necessary columns
         df_start = df_start[var_lst + ["weight", "zcta_10"]].copy()
 
-        # Group and compute weighted mean
-        df_start = (
-            df_start.groupby("zcta_10")
-            .apply(lambda g: pd.Series({
-                var: weighted_mean(g[var], g["weight"])
-                for var in var_lst
-            }))
-            .reset_index()
-        )
+        rate_vars = cfg.interp.xwalk.rate_vars
+        count_vars = [v for v in var_lst if (v not in rate_vars)]
+
+        # Calculate weighted means and sums using groupby
+        # Use a list of aggregations for each variable
+        agg_dict = {
+            **{var: lambda x: weighted_mean(x, df_start.loc[x.index, "weight"]) for var in rate_vars},
+            **{var: lambda x: weighted_sum(x, df_start.loc[x.index, "weight"]) for var in count_vars}
+        }
+
+        # Group by and aggregate in a single operation
+        df_start = df_start.groupby("zcta_10").agg(agg_dict).reset_index()
         # merge in 2010 file
         df_mg = df_start.merge(df_end, left_on="zcta_10", right_on="zcta", how="inner", suffixes=("_start", "_end"))
     else:
