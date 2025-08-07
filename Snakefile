@@ -19,8 +19,6 @@ merged_output_files = []
 for geo_type in hydra_cfg.variables.valid_years.keys():
     for survey in hydra_cfg.variables.valid_years[geo_type].keys():
         for year in hydra_cfg.variables.valid_years[geo_type][survey]:
-            if survey == "acs5":
-                year = year - 2
             merged_output_files.append(f"{cfg.datapaths.base_path}/output/{geo_type}_yearly/{survey}_{year}.parquet")
 print(merged_output_files)
 

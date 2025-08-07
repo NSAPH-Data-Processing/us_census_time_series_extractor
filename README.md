@@ -20,7 +20,7 @@ This repository streamlines the extraction of time series from American Communit
 - Time Coverage : 2007 - 2018
 - Population: All 50 states including the District of Columbia, Puerto Rico, and other U.S. territories.
 - Geographical Coverage: nation, all states (including DC and Puerto Rico), all metropolitan areas, all congressional districts (116th congress), all counties, all places, all tracts and block groups.
-- ZCTA Coverage: 33120
+- ZCTA Coverage
 - Data Source: The American Community Survey (ACS) is an ongoing survey that provides data every year -- giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population.
 
 ### American Community Survey 1-Year Data (ACS1)
@@ -28,7 +28,7 @@ This repository streamlines the extraction of time series from American Communit
 - Time Coverage : 2005 - 2020
 - Population: All 50 states including the District of Columbia, Puerto Rico, and other U.S. territories.
 - Geographical Coverage: available for the nation, all 50 states, the District of Columbia, Puerto Rico, every congressional district, every metropolitan area, and all counties and places with populations of 65,000 or more.
-- ZCTA Coverage: No ZCTA coverage
+- No ZCTA coverage
 - Data Source: The American Community Survey (ACS) is an ongoing survey that provides data every year -- giving communities the current information they need to plan investments and services. The ACS covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population.
 
 ### Decennial Census
@@ -67,9 +67,7 @@ The repository contains:
 
 **Processing rules**
 
-To align with the aggregated nature of ACS estimates over 5-year periods, a specific processing rule is employed within the project. Each dataset generated from ACS data is internally tagged to a year that is 2 years prior. This tagging ensures that the data extracted in a given year corresponds to the ACS data collected 2 years later, providing consistency with the 5-year estimates.
-
-For instance, when extracting data for the year 2020 from the ACS, the data is tagged internally as ACS 2018. This alignment respects the fact that the 2020 5-year estimates encompass ACS data collected from January 1, 2016, through December 31, 2020. This approach enables accurate and meaningful analysis while considering the temporal aggregation inherent in ACS data reporting.
+ACS5 estimates represent estimates over 5-year periods, so how to map a single year to each value is not evident. Here we assign the last year of the 5-year period to the acs5 estimates.
 
 **American Community Survey 1-Year Data and Hispanic Variable**
 

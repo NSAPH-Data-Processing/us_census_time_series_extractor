@@ -27,8 +27,6 @@ def main(cfg):
             con.register("all_vars", all_vars_df)
 
             for year in cfg.variables.valid_years[geo_type][survey]:
-                if survey == "acs5":
-                    year = year - 2
                 filename = f"{cfg.datapaths.base_path}/output/{geo_type}_yearly/{survey}_{year}.parquet"
                 con.execute(f"""
                     COPY (

@@ -112,11 +112,7 @@ def process_variable_dict(
             )
 
         # Assign year
-        # if dataset contains 'acs5', assign the midyear of the ACS5 5-year estimates
-        if "acs5" in dataset:
-            df["year"] = year - 2
-        else:
-            df["year"] = year
+        df["year"] = year
 
         # Reset index
         df.reset_index(inplace=True)
