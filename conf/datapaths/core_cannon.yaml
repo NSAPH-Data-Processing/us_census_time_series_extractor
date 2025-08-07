@@ -1,4 +1,7 @@
-input: /n/dominici_lab/lab/lego/social/demographics__census/raw/core
-output: /n/dominici_lab/lab/lego/social/demographics__census/core
-input_geo: /n/dominici_lab/lab/lego/geoboundaries/us_geoboundaries__census/
-intermediate: null
+base_path: data/core
+
+# null means no symlink
+dirs:
+  input: /n/dominici_lab/lab/lego/social/demographics__census/raw/core
+  output: /n/dominici_lab/lab/lego/social/demographics__census/core
+  zcta_xwalk: /n/dominici_lab/lab/lego/geoboundaries/zcta00_2_zcta10__ipums_mcdc/xwalk

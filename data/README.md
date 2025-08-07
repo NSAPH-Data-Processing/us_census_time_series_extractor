@@ -1,7 +1,5 @@
-# Symlinks
+This is a data placeholder.
 
-Add an additional symlink for the zcta2zcta crosswalk
+Run python src/create_datapaths.py to attach input and output folders.
 
-```
-ln -s /n/dominici_lab/Lab/lego/geoboundaries/zcta00_2_zcta10__ipums_mcdc/xwalk data/zcta_xwalk
-```
+The script is governed by the conf/datapaths configuration files.

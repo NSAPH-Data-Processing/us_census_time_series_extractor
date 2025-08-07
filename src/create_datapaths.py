@@ -5,14 +5,31 @@ from omegaconf import DictConfig
 
 LOGGER = logging.getLogger(__name__)
 
+def init_folder(folder_cfg=None):
+    folder_dict = folder_cfg.dirs
+    
+    # defines a base path for the data
+    datapath = folder_cfg.base_path
+    if datapath is None:
+        datapath = "data"
+    # check if datapath exists, if not create it 
+    if os.path.exists(datapath):
+        LOGGER.info(f"Base path {datapath} already exists")
+    else:
+        LOGGER.info(f"Creating base path {datapath}")
+        os.makedirs(datapath, exist_ok=True)
+
+    # create subfolders and symbolic links
+    create_subfolders_and_links(datapath=datapath, folder_dict=folder_dict)
 
 def create_subfolders_and_links(datapath="data", folder_dict=None):
     """
     Recursively create subfolders and symbolic links.
     """
     if not os.path.exists(datapath):
-        LOGGER.info(f"Error: {datapath} does not exists.")
+        LOGGER.info(f"Error: {datapath} does not exist.")
         return
+
     if isinstance(folder_dict, DictConfig):
         for path, subfolder_dict in folder_dict.items():
             sub_datapath = os.path.join(datapath, path)
@@ -50,7 +67,7 @@ def create_subfolders_and_links(datapath="data", folder_dict=None):
 @hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg):
     """Create data subfolders and symbolic links as indicated in config file."""
-    create_subfolders_and_links(folder_dict=cfg.datapaths)
+    init_folder(folder_cfg=cfg.datapaths)
 
 if __name__ == "__main__":
     main()

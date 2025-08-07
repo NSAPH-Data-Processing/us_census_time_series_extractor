@@ -11,12 +11,12 @@ logger = logging.getLogger(__name__)
 def main(cfg):
     # == concat the df's ==    
     for geo_type in cfg.variables.valid_years.keys():
-        os.makedirs(f"data/output/{geo_type}_yearly", exist_ok=True)
+        os.makedirs(f"{cfg.datapaths.base_path}/output/{geo_type}_yearly", exist_ok=True)
         for survey in cfg.variables.valid_years[geo_type].keys():
             all_vars_list = []
             for variable in cfg.variables.names.keys():
                 var_df = pd.read_parquet(
-                    f"data/input/{geo_type}__{survey}__{variable}.parquet"
+                    f"{cfg.datapaths.base_path}/input/{geo_type}__{survey}__{variable}.parquet"
                 )
                 all_vars_list.append(var_df)
             all_vars_df = pd.concat(all_vars_list, axis=1)
@@ -29,7 +29,7 @@ def main(cfg):
             for year in cfg.variables.valid_years[geo_type][survey]:
                 if survey == "acs5":
                     year = year - 2
-                filename = f"data/output/{geo_type}_yearly/{survey}_{year}.parquet"
+                filename = f"{cfg.datapaths.base_path}/output/{geo_type}_yearly/{survey}_{year}.parquet"
                 con.execute(f"""
                     COPY (
                         SELECT * 
