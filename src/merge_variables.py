@@ -18,7 +18,7 @@ def main(cfg):
                 var_df = pd.read_parquet(
                     f"{cfg.datapaths.base_path}/input/{geo_type}__{survey}__{variable}.parquet"
                 )
-                all_vars_list.append(var_df)
+                all_vars_list.append(var_df.set_index(["year", geo_type]))
             all_vars_df = pd.concat(all_vars_list, axis=1)
 
             # == save parquets ==
