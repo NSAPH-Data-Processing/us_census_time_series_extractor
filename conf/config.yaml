@@ -1,7 +1,7 @@
 defaults:
   - _self_
-  - datapaths: core_cannon
-  - variables: core
+  - datapaths: core_cannon # asian_not_hispanic_cannon # 65_plus_cannon #
+  - variables: core # asian_not_hispanic # 65_plus #
 
 # logging config
 hydra:
@@ -11,7 +11,6 @@ hydra:
 api_key: ${oc.env:CENSUS_API_KEY} # type=str, default=os.environ['CENSUS_API_KEY'], help='Census API key'
 
 # fill manually when debugging scripts//snakemake fills the params when run
-fetch:
-  geo_type:  # 'zcta'  # type=Literal['zcta', 'county', 'state'], help='Geography type to fetch data for'
-  survey:  # type=Literal['dec', 'acs1', 'acs5'], help='Census survey to fetch data for'
-  variable:  # (e.g. variable=popultion) help='Census variable listed in a census yaml file'
+geo_type: #'zcta'  # type=Literal['zcta', 'county', 'state'], help='Geography type to fetch data for'
+survey:  #'acs5' # type=Literal['dec', 'acs1', 'acs5'], help='Census survey to fetch data for'
+variable:  #'population' # (e.g. variable=popultion) help='Census variable listed in a census yaml file'
