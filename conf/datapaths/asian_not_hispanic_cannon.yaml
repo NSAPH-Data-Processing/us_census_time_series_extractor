@@ -1,2 +1,6 @@
-input: /n/dominici_lab/lab/lego/social/demographics__census/raw/asian_not_hispanic
-output: /n/dominici_lab/lab/lego/social/demographics__census/asian_not_hispanic
+base_path: data/asian_not_hispanic
+
+# null means no symlink
+dirs:
+  input: /n/dominici_lab/lab/lego/social/demographics__census/raw/asian_not_hispanic
+  output: /n/dominici_lab/lab/lego/social/demographics__census/asian_not_hispanic

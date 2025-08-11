@@ -1,6 +1,5 @@
 # valid years to include for each geography type and survey across all variables
 # acs5 represent 5-year estimates, acs5 2009 represents the 2005-2009 5-year estimates
-# in the output the 5-year estimates are assigned to the middle year, so acs5 2009 is assigned to 2007
 valid_years:
   county:
     dec: [2000]

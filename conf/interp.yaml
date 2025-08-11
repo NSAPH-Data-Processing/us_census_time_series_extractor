@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  - datapaths: core_cannon
+  - variables: core
+  - interp: core
+
+geo_type: zcta
+
+xwalks:
+  zcta_2000_2010: # geotype: zcta, original_basis: 2000, target_basis: 2010
+    file: ipums_nhgis__zcta00_2_zcta10.parquet
+    from_colname: zcta_00
+    to_colname: zcta_10
+    weights_colname: weight

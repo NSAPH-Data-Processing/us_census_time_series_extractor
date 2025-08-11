@@ -112,11 +112,7 @@ def process_variable_dict(
             )
 
         # Assign year
-        # if dataset contains 'acs5', assign the midyear of the ACS5 5-year estimates
-        if "acs5" in dataset:
-            df["year"] = year - 2
-        else:
-            df["year"] = year
+        df["year"] = year
 
         # Reset index
         df.reset_index(inplace=True)
@@ -156,7 +152,7 @@ def main(cfg):
 
     var_df = pd.concat(var_df_list)
     filename = f"{cfg.geo_type}__{cfg.survey}__{cfg.variable}.parquet"
-    var_df.to_parquet(f"data/input/{filename}")
+    var_df.to_parquet(f"{cfg.datapaths.base_path}/input/{filename}")
     logger.info(f"GENERATED file {filename}")
 
 

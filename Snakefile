@@ -1,34 +1,28 @@
 import hydra
 
-conda: "requirements.yaml"
-configfile: "conf/config.yaml"
-
 envvars:  # this indicates environment vars that must be set, always done in docker
-    "PYTHONPATH",
     "CENSUS_API_KEY",
 
 with hydra.initialize(version_base=None, config_path="conf"):
-    hydra_cfg = hydra.compose(config_name="config")
+    cfg = hydra.compose(config_name="config")
 
 # == Obtain list of all target census variables (concepts) ==
-variable_list = list(hydra_cfg.variables.names.keys())
+variable_list = list(cfg.variables.names.keys())
 print(variable_list)
 
 # == Obtain output files from valid combinations of geo_types and surveys ===
 merged_output_files = []
-for geo_type in hydra_cfg.variables.valid_years.keys():
-    for survey in hydra_cfg.variables.valid_years[geo_type].keys():
-        for year in hydra_cfg.variables.valid_years[geo_type][survey]:
-            if survey == "acs5":
-                year = year - 2
-            merged_output_files.append(f"data/output/{geo_type}_yearly/{survey}_{year}.parquet")
+for geo_type in cfg.variables.valid_years.keys():
+    for survey in cfg.variables.valid_years[geo_type].keys():
+        for year in cfg.variables.valid_years[geo_type][survey]:
+            merged_output_files.append(f"{cfg.datapaths.base_path}/output/{geo_type}_yearly/{survey}_{year}.parquet")
 print(merged_output_files)
 
 fetched_output_files = []
-for geo_type in hydra_cfg.variables.valid_years.keys():
-    for survey in hydra_cfg.variables.valid_years[geo_type].keys():
+for geo_type in cfg.variables.valid_years.keys():
+    for survey in cfg.variables.valid_years[geo_type].keys():
         for variable in variable_list:
-            fetched_output_files.append(f"data/input/{geo_type}__{survey}__{variable}.parquet")
+            fetched_output_files.append(f"{cfg.datapaths.base_path}/input/{geo_type}__{survey}__{variable}.parquet")
 print(fetched_output_files)
 
 # == Define rules ==
@@ -38,7 +32,7 @@ rule all:
 
 rule fetch_variables:
     output:
-        "data/input/{geo_type}__{survey}__{variable}.parquet",
+        f"{cfg.datapaths.base_path}/input/{{geo_type}}__{{survey}}__{{variable}}.parquet",
     shell:
         """
         python src/fetch_variables.py \

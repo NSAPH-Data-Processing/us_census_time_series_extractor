@@ -1,3 +1,6 @@
-# if the files are stored in local, then paths are null
-input: null
-output: null
+base_path: data/
+
+# null means no symlink
+dirs:
+  input: null
+  output: null
