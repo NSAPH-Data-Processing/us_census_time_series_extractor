@@ -1,0 +1,18 @@
+
+# conf/interp/core.yaml
+zcta:
+  align:
+    2010: # target_basis
+      dec: #survey
+        2000: #year
+          zcta_2000_2010 #xwalk
+
+  intervals:
+    2010: #target_basis
+      dec: [2000, 2010]
+      acs5: [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    2020: #target_basis
+      #dec: [2020]
+      acs5: [2020, 2021, 2022]
+
+  output_prefix: zcta_yearly/demographics__census__core__zcta_yearly
