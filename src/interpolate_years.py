@@ -145,7 +145,7 @@ def main(cfg):
         
         years = all_vars_df["year"].unique()
         for year in years:
-            output_file = f"{cfg.datapaths.base_path}/output/{cfg.interp[cfg.geo_type].output_prefix}_{year}.parquet"
+            output_file = f"{cfg.datapaths.base_path}/output/{cfg.interp[cfg.geo_type].output_prefix}__{year}.parquet"
             duckdb.sql(f"""
                 COPY (
                     SELECT * FROM all_vars_df
