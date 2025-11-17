@@ -49,7 +49,7 @@ def get_data(year, geo_type, dataset, variable_list, api_key):
         if geo_type == "county":
             col_list = [geo_type, "state"] + variable_list.split(",")
             df = df[col_list]
-            df["county"] = df["county"] + df["state"]
+            df["county"] = df["state"] + df["county"]
             df.drop(columns=["state"], inplace=True)
             return True, df.set_index("county")
         if geo_type == "state":
