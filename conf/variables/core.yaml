@@ -502,6 +502,77 @@ names:
             - B14001_008E #Estimate!!Total!!Enrolled in school!!Enrolled in college, undergraduate years
             - B14001_009E #Estimate!!Total!!Enrolled in school!!Graduate or professional school
 
+  pop_high_school_not_attained:
+    dec:
+      - from_year: 2000
+        dataset: dec/sf3
+        codes:
+          num:
+            - P037003 #Total!!Male!!No schooling completed
+            - P037004 #Total!!Male!!Nursery to 4th grade
+            - P037005 #Total!!Male!!5th and 6th grade
+            - P037006 #Total!!Male!!7th and 8th grade
+            - P037007 #Total!!Male!!9th grade
+            - P037008 #Total!!Male!!10th grade
+            - P037009 #Total!!Male!!11th grade
+            - P037010 #Total!!Male!!12th grade, no diploma
+            - P037020 #Total!!Female!!No schooling completed
+            - P037021 #Total!!Female!!Nursery to 4th grade
+            - P037022 #Total!!Female!!5th and 6th grade
+            - P037023 #Total!!Female!!7th and 8th grade
+            - P037024 #Total!!Female!!9th grade
+            - P037025 #Total!!Female!!10th grade
+            - P037026 #Total!!Female!!11th grade
+            - P037027 #Total!!Female!!12th grade, no diploma
+
+
+      - from_year: 2010
+        dataset: null
+    
+    acs1:
+      - from_year: 2005
+        dataset: acs/acs1
+        codes:
+          num:
+            - B15002_003E #Estimate!!Total!!Male!!No schooling completed
+            - B15002_004E #Estimate!!Total!!Male!!Nursery to 4th grade
+            - B15002_005E #Estimate!!Total!!Male!!5th and 6th grade
+            - B15002_006E #Estimate!!Total!!Male!!7th and 8th grade
+            - B15002_007E #Estimate!!Total!!Male!!9th grade
+            - B15002_008E #Estimate!!Total!!Male!!10th grade
+            - B15002_009E #Estimate!!Total!!Male!!11th grade
+            - B15002_010E #Estimate!!Total!!Male!!12th grade, no diploma
+            - B15002_020E #Estimate!!Total!!Female!!No schooling completed
+            - B15002_021E #Estimate!!Total!!Female!!Nursery to 4th grade
+            - B15002_022E #Estimate!!Total!!Female!!5th and 6th grade
+            - B15002_023E #Estimate!!Total!!Female!!7th and 8th grade
+            - B15002_024E #Estimate!!Total!!Female!!9th grade
+            - B15002_025E #Estimate!!Total!!Female!!10th grade
+            - B15002_026E #Estimate!!Total!!Female!!11th grade
+            - B15002_027E #Estimate!!Total!!Female!!12th grade, no diploma
+
+    acs5:
+      - from_year: 2009
+        dataset: acs/acs5
+        codes:
+          num:
+            - B15002_003E #Estimate!!Total!!Male!!No schooling completed
+            - B15002_004E #Estimate!!Total!!Male!!Nursery to 4th grade
+            - B15002_005E #Estimate!!Total!!Male!!5th and 6th grade
+            - B15002_006E #Estimate!!Total!!Male!!7th and 8th grade
+            - B15002_007E #Estimate!!Total!!Male!!9th grade
+            - B15002_008E #Estimate!!Total!!Male!!10th grade
+            - B15002_009E #Estimate!!Total!!Male!!11th grade
+            - B15002_010E #Estimate!!Total!!Male!!12th grade, no diploma
+            - B15002_020E #Estimate!!Total!!Female!!No schooling completed
+            - B15002_021E #Estimate!!Total!!Female!!Nursery to 4th grade
+            - B15002_022E #Estimate!!Total!!Female!!5th and 6th grade
+            - B15002_023E #Estimate!!Total!!Female!!7th and 8th grade
+            - B15002_024E #Estimate!!Total!!Female!!9th grade
+            - B15002_025E #Estimate!!Total!!Female!!10th grade
+            - B15002_026E #Estimate!!Total!!Female!!11th grade
+            - B15002_027E #Estimate!!Total!!Female!!12th grade, no diploma
+
   pop_higher_education_attained:
     dec:
       - from_year: 2000
