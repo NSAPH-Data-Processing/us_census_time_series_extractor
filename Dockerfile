@@ -8,8 +8,8 @@ WORKDIR /app
 # Clone the repository
 #ARG GITHUB_TOKEN
 #RUN git clone https://${GITHUB_TOKEN}@github.com/NSAPH-Data-Processing/census .
-RUN git clone https://github.com/Climate-CAFE/census_series.git .
-RUN mamba env update -n base -f requirements.yml 
+RUN git clone https://github.com/NSAPH-Data-Processing/us_census_time_series_extractor.git .
+RUN mamba env update -n base -f environment.yml 
 
 # Update snakemake and pulp
 #RUN conda install pulp -c conda-forge
