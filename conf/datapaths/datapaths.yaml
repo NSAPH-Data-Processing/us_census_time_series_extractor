@@ -4,3 +4,5 @@ base_path: data/
 dirs:
   input: null
   output: null
+  xwalk: 
+    zcta: null
