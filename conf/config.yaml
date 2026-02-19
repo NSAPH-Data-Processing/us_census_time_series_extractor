@@ -1,6 +1,6 @@
 defaults:
   - _self_
-  - datapaths: core_cannon # asian_not_hispanic_cannon # 65_plus_cannon #
+  - datapaths: datapaths # asian_not_hispanic_cannon # 65_plus_cannon #
   - variables: core # asian_not_hispanic # 65_plus #
 
 # logging config

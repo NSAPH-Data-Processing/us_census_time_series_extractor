@@ -15,7 +15,7 @@ RUN mamba env update -n base -f environment.yml
 #RUN conda install pulp -c conda-forge
 
 # Create paths to data placeholders
-RUN python utils/create_data_symlinks.py
+RUN python src/create_datapaths.py 
 
 # Set the entrypoint to use the Conda environment
 
