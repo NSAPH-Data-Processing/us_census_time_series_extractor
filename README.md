@@ -187,6 +187,7 @@ export PYTHONPATH='.'
 python src/create_datapaths.py
 
 # Execute the Snakemake pipeline
+```
 snakemake --cores 1 #select number of cores
 ```
 
