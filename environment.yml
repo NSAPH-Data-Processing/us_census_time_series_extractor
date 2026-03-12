@@ -1,19 +1,41 @@
 name: census_series
 channels:
   - conda-forge
-  - defaults
 dependencies:
-  - python=3.11
+  - python
+  - pip
+
+  # your deps
   - census
   - pyarrow
   - duckdb
   - pandas
+  # fix for censusdis -> fiona
   - gdal>=3.1
   - fiona>=1.10,<2.0
   - pulp>=2.7,<3.0
-  - pip
+
+  # usually better from conda-forge
+  - ipykernel
+  - hydra-core
   - pip:
-    - censusdis
-    - ipykernel
-    - hydra-core
-    - snakemake
+      - censusdis
+      - snakemake
+
+
+#If you only need censusdis.data and don’t care about map utilities, 
+#you can avoid pulling geospatial deps by not importing the maps module. 
+#But since censusdis.data imports censusdis.maps in your traceback, 
+#installing contextily/geopandas is the clean fix
+# conda deactivate 2>/dev/null || true
+# conda env remove -n census_series -y
+
+# conda create -n census_series -c conda-forge -y python=3.11 pip
+# conda activate census_series
+
+# conda install -c conda-forge -y pandas pyarrow duckdb geopandas contextily matplotlib
+# python -m pip install -U pip
+# python -m pip install -U censusdis
+# python -m pip install -U ipykernel
+# python -m pip install -U snakemake
+# python -m pip install -U hydra-core
